@@ -16,9 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.lexy.materialtest.Logging.L;
 import com.example.lexy.materialtest.R;
 import com.example.lexy.materialtest.adapters.AdapterPCgames;
+import com.example.lexy.materialtest.extras.Constants;
 import com.example.lexy.materialtest.network.VolleySingleton;
 import com.example.lexy.materialtest.pojo.GameCat;
 
@@ -28,9 +28,15 @@ import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.*;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_DECK;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_ICON;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_ID;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_IMAGE;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_NAME;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
+import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RESULTS;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,7 +106,7 @@ public class PCFragment extends Fragment {
 
     private void sendJsonRequest() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_PC_NEWGAMES,
-                "",
+                (String) null,
                 new Response.Listener<JSONObject>() {
 
             @Override
@@ -131,6 +137,13 @@ public class PCFragment extends Fragment {
 
         if (response != null && response.length() > 0) {
 
+            Integer id = -1;
+            String name = Constants.NA;
+            String deck = Constants.NA;
+            Integer releaseDay = -1;
+            String releaseMonth = Constants.NA;
+            String typeImage = Constants.NA;
+
 
             try {
 
@@ -140,31 +153,36 @@ public class PCFragment extends Fragment {
 
                         JSONObject currentGame = arrayGames.getJSONObject(i);
 
-                        String id = currentGame.getString(KEY_ID);
-                        String name = currentGame.getString(KEY_NAME);
+                        if (currentGame.has(KEY_ID) && !currentGame.isNull(KEY_ID)) {
+                            id = currentGame.getInt(KEY_ID);
+                        }
 
-                        Integer releaseDay = null;
-                        if (!currentGame.isNull(KEY_RELEASE_DAY)) {
+                        if (currentGame.has(KEY_NAME) && !currentGame.isNull(KEY_NAME)) {
+                            name = currentGame.getString(KEY_NAME);
+                        }
+
+                        releaseDay = null;
+                        if (currentGame.has(KEY_RELEASE_DAY) && !currentGame.isNull(KEY_RELEASE_DAY)) {
                             releaseDay = currentGame.getInt(KEY_RELEASE_DAY);
                         }
 
-                        String deck = currentGame.getString(KEY_DECK);
+                        deck = currentGame.getString(KEY_DECK);
 
 
-                        String releaseMonth = null;
+                        releaseMonth = null;
 
-                        if (!currentGame.isNull(KEY_RELEASE_MONTH)) {
+                        if (currentGame.has(KEY_RELEASE_MONTH) && !currentGame.isNull(KEY_RELEASE_MONTH)) {
                             Integer monthNumber = currentGame.getInt(KEY_RELEASE_MONTH);
                             releaseMonth = getMonth(monthNumber);
                         }
 
 
-                        String typeImage = null;
-                        if (!currentGame.isNull(KEY_IMAGE)) {
+                        typeImage = null;
+                        if (currentGame.has(KEY_IMAGE) && !currentGame.isNull(KEY_IMAGE)) {
 
                             JSONObject objectImage = currentGame.getJSONObject(KEY_IMAGE);
 
-                            if (objectImage.has(KEY_ICON)) {
+                            if (objectImage.has(KEY_ICON) && objectImage.has(KEY_ICON)) {
 
                                 typeImage = objectImage.getString(KEY_ICON);
                             } else {
@@ -175,14 +193,16 @@ public class PCFragment extends Fragment {
 
 
                         GameCat gameCat = new GameCat();
-                        gameCat.setId(Integer.parseInt(id));
+                        gameCat.setId(Integer.parseInt(String.valueOf(id)));
                         gameCat.setName(name);
                         gameCat.setDeck(deck);
                         gameCat.setReleaseDay(releaseDay);
                         gameCat.setReleaseMonth(releaseMonth);
                         gameCat.setTypeImage(typeImage);
 
-                        listGames.add(gameCat);
+                        if (id != -1 && !name.equals(Constants.NA)) {
+                            listGames.add(gameCat);
+                        }
                     }
 
                 }
