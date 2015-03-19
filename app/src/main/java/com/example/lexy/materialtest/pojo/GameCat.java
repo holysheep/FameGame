@@ -1,28 +1,40 @@
 package com.example.lexy.materialtest.pojo;
 
 
-import java.util.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class GameCat {
 
+public class GameCat implements Parcelable {
+    public static final Parcelable.Creator<GameCat> CREATOR
+            = new Parcelable.Creator<GameCat>() {
+        public GameCat createFromParcel(Parcel in) {
+            return new GameCat(in);
+        }
+
+        public GameCat[] newArray(int size) {
+            return new GameCat[size];
+        }
+    };
 
     private String name;
-
     private int id;
-
     private String typeImage;
-
     private Integer releaseDay;
-
     private String releaseMonth;
-
     private String deck;
 
-
     public GameCat() {
-
     }
 
+    public GameCat(Parcel input) {
+        id = input.readInt();
+        name = input.readString();
+        typeImage = input.readString();
+        deck = input.readString();
+        releaseMonth = input.readString();
+        releaseDay = input.readInt();
+    }
 
     public GameCat(String name,
                    int id,
@@ -38,7 +50,6 @@ public class GameCat {
         this.releaseMonth = releaseMonth;
         this.deck = deck;
     }
-
 
     public String getName() {
         return name;
@@ -88,12 +99,8 @@ public class GameCat {
         this.deck = deck;
     }
 
-
-
-
     @Override
     public String toString() {
-
         return  "\nID: " + id +
                 "\nName " + name +
                 "\nDate Day " + releaseDay +
@@ -102,8 +109,18 @@ public class GameCat {
                 "\n";
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(deck);
+        dest.writeString(releaseMonth);
+        dest.writeString(typeImage);
+        dest.writeInt(releaseDay);
+    }
 }
-
-
