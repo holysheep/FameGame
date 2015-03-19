@@ -9,10 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -52,6 +57,7 @@ public class PCFragment extends Fragment {
     public static final String URL_PC_NEWGAMES = "http://www.giantbomb.com/api/games/" +
             "?api_key=a94ac164a19a3e2c8c2c7b406d36866b746e7130&format=json" +
             "&filter=expected_release_quarter:2,platforms:94&sort=number_of_user_reviews:desc";
+    private static final String STATE_GAMES = "state_games";
 
 
     // TODO: Rename and change types of parameters
@@ -60,8 +66,10 @@ public class PCFragment extends Fragment {
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
     private RequestQueue requestQueue;
-    private RecyclerView listPCgames;
+    private RecyclerView listPCnewgames;
     private AdapterPCgames adapterPCgames;
+    ArrayList<GameCat> listPCGames = new ArrayList<>();
+    private TextView textVolleyError;
 
 
     /**
@@ -82,6 +90,11 @@ public class PCFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(STATE_GAMES, listPCGames);
+    }
 
     public PCFragment() {
         // Required empty public constructor
@@ -103,44 +116,56 @@ public class PCFragment extends Fragment {
 
     private void sendJsonRequest() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_PC_NEWGAMES,
-                (String) null,
+                (JSONObject) null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        adapterPCgames.setGamelist(parseJSONResponse(response));
+                        textVolleyError.setVisibility(View.GONE);
+                        listPCGames = parseJSONResponse(response);
+                        adapterPCgames.setGamelist(listPCGames);
                     }
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                hadleVolleyError(error);
             }
         });
-
         requestQueue.add(request);
     }
 
 
-    private ArrayList<GameCat> parseJSONResponse(JSONObject response) {
+    private void hadleVolleyError(VolleyError error) {
 
-        ArrayList<GameCat> listGames = new ArrayList<>();
+        textVolleyError.setVisibility(View.VISIBLE);
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            textVolleyError.setText(R.string.error_timout);
+
+        } else if (error instanceof NetworkError) {
+            textVolleyError.setText(R.string.error_network);
+
+        } else if (error instanceof ParseError) {
+            textVolleyError.setText(R.string.error_parser);
+        }
+    }
+
+
+    private ArrayList<GameCat> parseJSONResponse(JSONObject response) {
+        ArrayList<GameCat> listPCGames = new ArrayList<>();
 
         if (response != null && response.length() > 0) {
-
-            Integer id = -1;
-            String name = Constants.NA;
-            String deck = Constants.NA;
-            Integer releaseDay = -1;
-            String releaseMonth = Constants.NA;
-            String typeImage = Constants.NA;
-
-
             try {
-
                 if (response.has(KEY_RESULTS)) {
                     JSONArray arrayGames = response.getJSONArray(KEY_RESULTS);
                     for (int i = 0; i < arrayGames.length(); i++) {
+
+                        Integer id = -1;
+                        String name = Constants.NA;
+                        String deck = Constants.NA;
+                        Integer releaseDay = -1;
+                        String releaseMonth = Constants.NA;
+                        String typeImage = Constants.NA;
 
                         JSONObject currentGame = arrayGames.getJSONObject(i);
 
@@ -157,8 +182,9 @@ public class PCFragment extends Fragment {
                             releaseDay = currentGame.getInt(KEY_RELEASE_DAY);
                         }
 
-                        deck = currentGame.getString(KEY_DECK);
-
+                        if (currentGame.has(KEY_DECK) && !currentGame.isNull(KEY_DECK)) {
+                            deck = currentGame.getString(KEY_DECK);
+                        }
 
                         releaseMonth = null;
 
@@ -176,9 +202,6 @@ public class PCFragment extends Fragment {
                             if (objectImage.has(KEY_ICON) && objectImage.has(KEY_ICON)) {
 
                                 typeImage = objectImage.getString(KEY_ICON);
-                            } else {
-
-                                typeImage = "NA";
                             }
                         }
 
@@ -191,7 +214,7 @@ public class PCFragment extends Fragment {
                         gameCat.setTypeImage(typeImage);
 
                         if (id != -1 && !name.equals(Constants.NA)) {
-                            listGames.add(gameCat);
+                            listPCGames.add(gameCat);
                         }
                     }
                 }
@@ -199,7 +222,7 @@ public class PCFragment extends Fragment {
                 Log.d("JSON Parser", "log" + e.getMessage());
             }
         }
-        return listGames;
+        return listPCGames;
     }
 
 
@@ -213,11 +236,17 @@ public class PCFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pc, container, false);
-        listPCgames = (RecyclerView) view.findViewById(R.id.listPCgames);
+        textVolleyError = (TextView) view.findViewById(R.id.volleyTextError);
+        listPCnewgames = (RecyclerView) view.findViewById(R.id.listPCgames);
         adapterPCgames = new AdapterPCgames(getActivity());
-        listPCgames.setAdapter(adapterPCgames);
-        listPCgames.setLayoutManager(new LinearLayoutManager(getActivity()));
-        sendJsonRequest();
+        listPCnewgames.setAdapter(adapterPCgames);
+        listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if (savedInstanceState != null) {
+            listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
+            adapterPCgames.setGamelist(listPCGames);
+        } else {
+            sendJsonRequest();
+        }
         return view;
     }
 }
