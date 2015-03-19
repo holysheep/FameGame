@@ -64,7 +64,6 @@ public class PCFragment extends Fragment {
     private AdapterPCgames adapterPCgames;
 
 
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -102,36 +101,28 @@ public class PCFragment extends Fragment {
     }
 
 
-
-
     private void sendJsonRequest() {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_PC_NEWGAMES,
                 (String) null,
                 new Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(JSONObject response) {
-
-                adapterPCgames.setGamelist(parseJSONResponse(response));
-            }
-
-        }, new Response.ErrorListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        adapterPCgames.setGamelist(parseJSONResponse(response));
+                    }
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
 
-
             }
-
         });
 
         requestQueue.add(request);
     }
 
 
-
-
-    private ArrayList<GameCat> parseJSONResponse (JSONObject response) {
+    private ArrayList<GameCat> parseJSONResponse(JSONObject response) {
 
         ArrayList<GameCat> listGames = new ArrayList<>();
 
@@ -191,7 +182,6 @@ public class PCFragment extends Fragment {
                             }
                         }
 
-
                         GameCat gameCat = new GameCat();
                         gameCat.setId(Integer.parseInt(String.valueOf(id)));
                         gameCat.setName(name);
@@ -204,23 +194,18 @@ public class PCFragment extends Fragment {
                             listGames.add(gameCat);
                         }
                     }
-
                 }
-
             } catch (JSONException e) {
                 Log.d("JSON Parser", "log" + e.getMessage());
-
             }
         }
-
         return listGames;
     }
 
 
     public String getMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month-1];
+        return new DateFormatSymbols().getMonths()[month - 1];
     }
-
 
 
     @Override
@@ -235,5 +220,4 @@ public class PCFragment extends Fragment {
         sendJsonRequest();
         return view;
     }
-
 }
