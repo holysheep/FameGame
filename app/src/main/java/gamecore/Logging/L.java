@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.Logging;
+package gamecore.Logging;
 
 import android.content.Context;
 import android.util.Log;

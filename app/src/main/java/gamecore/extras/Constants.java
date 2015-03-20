@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.extras;
+package gamecore.extras;
 
 
 public interface Constants {

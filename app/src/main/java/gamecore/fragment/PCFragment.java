@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.fragment;
+package gamecore.fragment;
 
 
 import android.os.Bundle;
@@ -22,10 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.lexy.materialtest.R;
-import com.example.lexy.materialtest.adapters.AdapterPCgames;
-import com.example.lexy.materialtest.extras.Constants;
-import com.example.lexy.materialtest.network.VolleySingleton;
-import com.example.lexy.materialtest.pojo.GameCat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,14 +30,11 @@ import org.json.JSONObject;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_DECK;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_ICON;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_ID;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_IMAGE;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_NAME;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
-import static com.example.lexy.materialtest.extras.Keys.EndPointPC.KEY_RESULTS;
+import gamecore.adapters.AdapterPCgames;
+import gamecore.extras.Constants;
+import gamecore.extras.Keys;
+import gamecore.network.VolleySingleton;
+import gamecore.pojo.GameCat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -156,8 +149,8 @@ public class PCFragment extends Fragment {
 
         if (response != null && response.length() > 0) {
             try {
-                if (response.has(KEY_RESULTS)) {
-                    JSONArray arrayGames = response.getJSONArray(KEY_RESULTS);
+                if (response.has(Keys.EndPointPC.KEY_RESULTS)) {
+                    JSONArray arrayGames = response.getJSONArray(Keys.EndPointPC.KEY_RESULTS);
                     for (int i = 0; i < arrayGames.length(); i++) {
 
                         Integer id = -1;
@@ -169,39 +162,39 @@ public class PCFragment extends Fragment {
 
                         JSONObject currentGame = arrayGames.getJSONObject(i);
 
-                        if (currentGame.has(KEY_ID) && !currentGame.isNull(KEY_ID)) {
-                            id = currentGame.getInt(KEY_ID);
+                        if (currentGame.has(Keys.EndPointPC.KEY_ID) && !currentGame.isNull(Keys.EndPointPC.KEY_ID)) {
+                            id = currentGame.getInt(Keys.EndPointPC.KEY_ID);
                         }
 
-                        if (currentGame.has(KEY_NAME) && !currentGame.isNull(KEY_NAME)) {
-                            name = currentGame.getString(KEY_NAME);
+                        if (currentGame.has(Keys.EndPointPC.KEY_NAME) && !currentGame.isNull(Keys.EndPointPC.KEY_NAME)) {
+                            name = currentGame.getString(Keys.EndPointPC.KEY_NAME);
                         }
 
                         releaseDay = null;
-                        if (currentGame.has(KEY_RELEASE_DAY) && !currentGame.isNull(KEY_RELEASE_DAY)) {
-                            releaseDay = currentGame.getInt(KEY_RELEASE_DAY);
+                        if (currentGame.has(Keys.EndPointPC.KEY_RELEASE_DAY) && !currentGame.isNull(Keys.EndPointPC.KEY_RELEASE_DAY)) {
+                            releaseDay = currentGame.getInt(Keys.EndPointPC.KEY_RELEASE_DAY);
                         }
 
-                        if (currentGame.has(KEY_DECK) && !currentGame.isNull(KEY_DECK)) {
-                            deck = currentGame.getString(KEY_DECK);
+                        if (currentGame.has(Keys.EndPointPC.KEY_DECK) && !currentGame.isNull(Keys.EndPointPC.KEY_DECK)) {
+                            deck = currentGame.getString(Keys.EndPointPC.KEY_DECK);
                         }
 
                         releaseMonth = null;
 
-                        if (currentGame.has(KEY_RELEASE_MONTH) && !currentGame.isNull(KEY_RELEASE_MONTH)) {
-                            Integer monthNumber = currentGame.getInt(KEY_RELEASE_MONTH);
+                        if (currentGame.has(Keys.EndPointPC.KEY_RELEASE_MONTH) && !currentGame.isNull(Keys.EndPointPC.KEY_RELEASE_MONTH)) {
+                            Integer monthNumber = currentGame.getInt(Keys.EndPointPC.KEY_RELEASE_MONTH);
                             releaseMonth = getMonth(monthNumber);
                         }
 
 
                         typeImage = null;
-                        if (currentGame.has(KEY_IMAGE) && !currentGame.isNull(KEY_IMAGE)) {
+                        if (currentGame.has(Keys.EndPointPC.KEY_IMAGE) && !currentGame.isNull(Keys.EndPointPC.KEY_IMAGE)) {
 
-                            JSONObject objectImage = currentGame.getJSONObject(KEY_IMAGE);
+                            JSONObject objectImage = currentGame.getJSONObject(Keys.EndPointPC.KEY_IMAGE);
 
-                            if (objectImage.has(KEY_ICON) && objectImage.has(KEY_ICON)) {
+                            if (objectImage.has(Keys.EndPointPC.KEY_ICON) && objectImage.has(Keys.EndPointPC.KEY_ICON)) {
 
-                                typeImage = objectImage.getString(KEY_ICON);
+                                typeImage = objectImage.getString(Keys.EndPointPC.KEY_ICON);
                             }
                         }
 

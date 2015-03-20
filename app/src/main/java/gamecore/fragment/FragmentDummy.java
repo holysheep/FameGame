@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.fragment;
+package gamecore.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.lexy.materialtest.R;
-import com.example.lexy.materialtest.network.VolleySingleton;
+
+import gamecore.network.VolleySingleton;
 
 public class FragmentDummy extends Fragment {
 
@@ -44,22 +45,20 @@ public class FragmentDummy extends Fragment {
                 new Response.Listener<String>() {
 
 
-            @Override
-            public void onResponse(String response) {
+                    @Override
+                    public void onResponse(String response) {
 
 
+                    }
 
-            }
-
-        } , new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
 
-
             }
 
-        } );
+        });
 
         requestQueue.add(request);
 

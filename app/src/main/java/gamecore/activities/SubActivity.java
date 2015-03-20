@@ -1,8 +1,8 @@
-package com.example.lexy.materialtest.activities;
+package gamecore.activities;
 
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,7 +44,7 @@ public class SubActivity extends ActionBarActivity {
             return true;
         }
 
-        if(id==android.R.id.home){
+        if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }
 

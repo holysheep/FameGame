@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.views;
+package gamecore.views;
 
 /*
  * Copyright 2014 Google Inc. All rights reserved.
@@ -15,7 +15,8 @@ package com.example.lexy.materialtest.views;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-        import android.content.Context;
+
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;

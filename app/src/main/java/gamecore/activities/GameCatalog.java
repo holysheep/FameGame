@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.activities;
+package gamecore.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.lexy.materialtest.R;
-import com.example.lexy.materialtest.adapters.InfAdapter;
-import com.example.lexy.materialtest.fragment.NavigationDrawerFragment;
-import com.example.lexy.materialtest.fragment.PCFragment;
-import com.example.lexy.materialtest.fragment.PS4Fragment;
-import com.example.lexy.materialtest.fragment.XboxFragment;
-import com.example.lexy.materialtest.views.SlidingTabLayout;
+
+import gamecore.adapters.InfAdapter;
+import gamecore.fragment.NavigationDrawerFragment;
+import gamecore.fragment.PCFragment;
+import gamecore.fragment.PS4Fragment;
+import gamecore.fragment.XboxFragment;
+import gamecore.views.SlidingTabLayout;
 
 public class GameCatalog extends ActionBarActivity {
 

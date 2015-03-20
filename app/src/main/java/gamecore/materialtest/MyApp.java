@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.materialtest;
+package gamecore.materialtest;
 
 import android.app.Application;
 import android.content.Context;
@@ -15,13 +15,13 @@ public class MyApp extends Application {
         sInstance = this;
     }
 
-    public static  MyApp getInstance () {
+    public static MyApp getInstance() {
 
         return sInstance;
 
     }
 
-    public static Context getAppContext () {
+    public static Context getAppContext() {
 
         return sInstance.getApplicationContext();
 

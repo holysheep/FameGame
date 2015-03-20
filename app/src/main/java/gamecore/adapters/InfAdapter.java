@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.adapters;
+package gamecore.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lexy.materialtest.pojo.Information;
 import com.example.lexy.materialtest.R;
 
 import java.util.Collections;
 import java.util.List;
+
+import gamecore.pojo.Information;
 
 
 public class InfAdapter extends RecyclerView.Adapter<InfAdapter.MyViewHolder> {
@@ -20,7 +21,6 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.MyViewHolder> {
 
     private final Context context;
     private List<Information> data = Collections.emptyList();
-
 
 
     // adapter's Constructor
@@ -31,12 +31,11 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.MyViewHolder> {
 
 
     //delete menu line
-    public void delete(int position){
+    public void delete(int position) {
         data.remove(position);
         notifyItemRemoved(position);
 
     }
-
 
 
     @Override
@@ -62,8 +61,7 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.MyViewHolder> {
     }
 
 
-
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
         ImageView icon;
@@ -79,7 +77,7 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.MyViewHolder> {
 
         @Override
         public void onClick(View v) {
-        delete(getPosition());
+            delete(getPosition());
         }
     }
 

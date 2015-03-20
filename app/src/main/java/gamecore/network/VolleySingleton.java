@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.network;
+package gamecore.network;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -6,9 +6,8 @@ import android.util.LruCache;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
-import com.example.lexy.materialtest.materialtest.MyApp;
 
-
+import gamecore.materialtest.MyApp;
 
 
 public class VolleySingleton {
@@ -23,7 +22,7 @@ public class VolleySingleton {
         mRequestQueue = Volley.newRequestQueue(MyApp.getAppContext());
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
 
-            private LruCache<String, Bitmap> cache = new LruCache<>((int)(Runtime.getRuntime().maxMemory()/1024)/8);
+            private LruCache<String, Bitmap> cache = new LruCache<>((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
 
             @Override
             public Bitmap getBitmap(String url) {
@@ -43,23 +42,23 @@ public class VolleySingleton {
 
     public static VolleySingleton getInstance() {
 
-      if (sInstance == null) {
+        if (sInstance == null) {
 
-          sInstance = new VolleySingleton();
+            sInstance = new VolleySingleton();
 
-      }
+        }
 
-      return sInstance;
+        return sInstance;
 
     }
 
-    public RequestQueue getRequestQueue(){
+    public RequestQueue getRequestQueue() {
 
         return mRequestQueue;
     }
 
 
-    public ImageLoader getmImageLoader () {
+    public ImageLoader getmImageLoader() {
 
         return mImageLoader;
     }

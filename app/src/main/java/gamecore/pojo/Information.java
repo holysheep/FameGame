@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.pojo;
+package gamecore.pojo;
 
 /**
  * Created by lexy on 2/12/15.

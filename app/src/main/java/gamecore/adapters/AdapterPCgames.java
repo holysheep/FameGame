@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.adapters;
+package gamecore.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,25 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.lexy.materialtest.R;
-import com.example.lexy.materialtest.network.VolleySingleton;
-import com.example.lexy.materialtest.pojo.GameCat;
 
 import java.util.ArrayList;
 
+import gamecore.network.VolleySingleton;
+import gamecore.pojo.GameCat;
 
-public class AdapterPCgames extends RecyclerView.Adapter <AdapterPCgames.ViewHolderPCgames> {
+
+public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHolderPCgames> {
 
 
     private ArrayList<GameCat> listGames = new ArrayList<>();
     private LayoutInflater layoutInflater;
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
-
 
 
     public AdapterPCgames(Context context) {
@@ -41,8 +40,6 @@ public class AdapterPCgames extends RecyclerView.Adapter <AdapterPCgames.ViewHol
 
         notifyItemRangeChanged(0, listGames.size());
     }
-
-
 
 
     @Override
@@ -62,7 +59,7 @@ public class AdapterPCgames extends RecyclerView.Adapter <AdapterPCgames.ViewHol
             holder.gameDescription.setText(currentGamecat.getDeck());
         }
         if (currentGamecat.getReleaseDay() != null)
-           holder.gameDay.setText(currentGamecat.getReleaseDay().toString());
+            holder.gameDay.setText(currentGamecat.getReleaseDay().toString());
 
         if (currentGamecat.getReleaseMonth() != null)
             holder.gameMonth.setText(currentGamecat.getReleaseMonth());
@@ -90,8 +87,6 @@ public class AdapterPCgames extends RecyclerView.Adapter <AdapterPCgames.ViewHol
     }
 
 
-
-
     static class ViewHolderPCgames extends RecyclerView.ViewHolder {
 
         private ImageView gameIcon;
@@ -100,7 +95,7 @@ public class AdapterPCgames extends RecyclerView.Adapter <AdapterPCgames.ViewHol
         private TextView gameDay;
         private TextView gameMonth;
 
-        public ViewHolderPCgames (View itemView) {
+        public ViewHolderPCgames(View itemView) {
             super(itemView);
             gameIcon = (ImageView) itemView.findViewById(R.id.gameIcon);
             gameTitle = (TextView) itemView.findViewById(R.id.gameTitle);

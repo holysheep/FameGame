@@ -1,4 +1,4 @@
-package com.example.lexy.materialtest.pojo;
+package gamecore.pojo;
 
 
 import android.os.Parcel;
