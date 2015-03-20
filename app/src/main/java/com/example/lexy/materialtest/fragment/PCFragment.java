@@ -140,7 +140,7 @@ public class PCFragment extends Fragment {
 
         textVolleyError.setVisibility(View.VISIBLE);
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            textVolleyError.setText(R.string.error_timout);
+            textVolleyError.setText(R.string.error_timeout);
 
         } else if (error instanceof NetworkError) {
             textVolleyError.setText(R.string.error_network);
@@ -236,7 +236,7 @@ public class PCFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pc, container, false);
-        textVolleyError = (TextView) view.findViewById(R.id.volleyTextError);
+        textVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
         listPCnewgames = (RecyclerView) view.findViewById(R.id.listPCgames);
         adapterPCgames = new AdapterPCgames(getActivity());
         listPCnewgames.setAdapter(adapterPCgames);
