@@ -23,6 +23,16 @@
         <item>PS4</item>
         <item>Xbox</item>
     </string-array>
-
+    <string name="error_timeout">Your Connection Timed Out</string>
+    <string name="error_network">Server Just Messed Up</string>
+    <string name="error_parser">Data Received Was An Unreadable Mess</string>
+    <string name="action_dynamic_tabs_activity">Dynamic Tabs</string>
+    <string name="title_activity_recycler_item_animations">RecyclerItemAnimations
+    </string>
+    <string name="action_recycler_item_animations">RecyclerItemAnimator</string>
+    <string name="title_activity_activity_using_tab_library">SlidingTabLayoutActivity</string>
+    <string name="action_tabs_using_library">SlidingTabLayoutExample</string>
+    <string name="title_activity_vector_test">VectorTestActivity</string>
+    <string name="action_vector_test_activity">VectorTestActivity</string>
 
 </resources>
