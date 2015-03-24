@@ -22,6 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import static gamecore.extras.Keys.EndPointPC.KEY_ID;
+import static gamecore.extras.Keys.EndPointPC.KEY_NAME;
+import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
+import static gamecore.extras.Keys.EndPointPC.KEY_ICON;
+import static gamecore.extras.Keys.EndPointPC.KEY_IMAGE;
+import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
+import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
+import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +60,8 @@ public class PCFragment extends Fragment {
             "?api_key=a94ac164a19a3e2c8c2c7b406d36866b746e7130&format=json" +
             "&filter=expected_release_quarter:2,platforms:94&sort=number_of_user_reviews:desc";
     private static final String STATE_GAMES = "state_games";
+
+
 
 
     // TODO: Rename and change types of parameters
@@ -148,75 +158,74 @@ public class PCFragment extends Fragment {
     private ArrayList<GameCat> parseJSONResponse(JSONObject response) {
         ArrayList<GameCat> listPCGames = new ArrayList<>();
 
-        if (response != null && response.length() > 0) {
-            try {
-                if (response.has(Keys.EndPointPC.KEY_RESULTS)) {
-                    JSONArray arrayGames = response.getJSONArray(Keys.EndPointPC.KEY_RESULTS);
-                    for (int i = 0; i < arrayGames.length(); i++) {
+        if (response != null && response.length() > 0) try {
+            if (response.has(KEY_RESULTS)) {
+                JSONArray arrayGames = response.getJSONArray(KEY_RESULTS);
+                for (int i = 0; i < arrayGames.length(); i++) {
 
-                        Integer id = -1;
-                        String name = Constants.NA;
-                        String deck = Constants.NA;
-                        Integer releaseDay = -1;
-                        String releaseMonth = Constants.NA;
-                        String typeImage = Constants.NA;
+                    Integer id = -1;
+                    String name = Constants.NA;
+                    String deck = Constants.NA;
+                    Integer releaseDay = -1;
+                    String releaseMonth = Constants.NA;
+                    String typeImage = Constants.NA;
 
-                        JSONObject currentGame = arrayGames.getJSONObject(i);
+                    JSONObject currentGame = arrayGames.getJSONObject(i);
 
-                        if (currentGame.has(Keys.EndPointPC.KEY_ID) && !currentGame.isNull(Keys.EndPointPC.KEY_ID)) {
-                            id = currentGame.getInt(Keys.EndPointPC.KEY_ID);
-                        }
+                    if (contains(currentGame, KEY_ID)) {
+                        id = currentGame.getInt(KEY_ID);
+                    }
 
-                        if (currentGame.has(Keys.EndPointPC.KEY_NAME) && !currentGame.isNull(Keys.EndPointPC.KEY_NAME)) {
-                            name = currentGame.getString(Keys.EndPointPC.KEY_NAME);
-                        }
+                    if (contains(currentGame, KEY_NAME)){
+                        name = currentGame.getString(KEY_NAME);
+                    }
 
-                        releaseDay = null;
-                        if (currentGame.has(Keys.EndPointPC.KEY_RELEASE_DAY) && !currentGame.isNull(Keys.EndPointPC.KEY_RELEASE_DAY)) {
-                            releaseDay = currentGame.getInt(Keys.EndPointPC.KEY_RELEASE_DAY);
-                        }
+                    releaseDay = null;
+                    if (contains(currentGame, KEY_RELEASE_DAY)) {
+                        releaseDay = currentGame.getInt(KEY_RELEASE_DAY);
+                    }
 
-                        if (currentGame.has(Keys.EndPointPC.KEY_DECK) && !currentGame.isNull(Keys.EndPointPC.KEY_DECK)) {
-                            deck = currentGame.getString(Keys.EndPointPC.KEY_DECK);
-                        }
+                    if (contains(currentGame, KEY_DECK)) {
+                        deck = currentGame.getString(KEY_DECK);
+                    }
 
-                        releaseMonth = null;
+                    releaseMonth = null;
 
-                        if (currentGame.has(Keys.EndPointPC.KEY_RELEASE_MONTH) && !currentGame.isNull(Keys.EndPointPC.KEY_RELEASE_MONTH)) {
-                            Integer monthNumber = currentGame.getInt(Keys.EndPointPC.KEY_RELEASE_MONTH);
-                            releaseMonth = getMonth(monthNumber);
-                        }
+                    if (contains(currentGame, KEY_RELEASE_MONTH)) {
+                        Integer monthNumber = currentGame.getInt(KEY_RELEASE_MONTH);
+                        releaseMonth = getMonth(monthNumber);
+                    }
 
+                    typeImage = null;
+                    if (contains(currentGame, KEY_IMAGE)) {
+                        JSONObject objectImage = currentGame.getJSONObject(KEY_IMAGE);
 
-                        typeImage = null;
-                        if (currentGame.has(Keys.EndPointPC.KEY_IMAGE) && !currentGame.isNull(Keys.EndPointPC.KEY_IMAGE)) {
-
-                            JSONObject objectImage = currentGame.getJSONObject(Keys.EndPointPC.KEY_IMAGE);
-
-                            if (objectImage.has(Keys.EndPointPC.KEY_ICON) && objectImage.has(Keys.EndPointPC.KEY_ICON)) {
-
-                                typeImage = objectImage.getString(Keys.EndPointPC.KEY_ICON);
-                            }
-                        }
-
-                        GameCat gameCat = new GameCat();
-                        gameCat.setId(Integer.parseInt(String.valueOf(id)));
-                        gameCat.setName(name);
-                        gameCat.setDeck(deck);
-                        gameCat.setReleaseDay(releaseDay);
-                        gameCat.setReleaseMonth(releaseMonth);
-                        gameCat.setTypeImage(typeImage);
-
-                        if (id != -1 && !name.equals(Constants.NA)) {
-                            listPCGames.add(gameCat);
+                        if (contains(objectImage, KEY_ICON)) {
+                            typeImage = objectImage.getString(KEY_ICON);
                         }
                     }
+
+                    GameCat gameCat = new GameCat();
+                    gameCat.setId(Integer.parseInt(String.valueOf(id)));
+                    gameCat.setName(name);
+                    gameCat.setDeck(deck);
+                    gameCat.setReleaseDay(releaseDay);
+                    gameCat.setReleaseMonth(releaseMonth);
+                    gameCat.setTypeImage(typeImage);
+
+                    if (id != -1 && !name.equals(Constants.NA)) {
+                        listPCGames.add(gameCat);
+                    }
                 }
-            } catch (JSONException e) {
-                Log.d("JSON Parser", "log" + e.getMessage());
             }
+        } catch (JSONException e) {
+            Log.d("JSON Parser", "log" + e.getMessage());
         }
         return listPCGames;
+    }
+
+    private boolean contains (JSONObject jsonObject, String key) {
+        return (jsonObject != null && jsonObject.has(key) && !jsonObject.isNull(key))? true : false;
     }
 
 
