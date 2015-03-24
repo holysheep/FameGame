@@ -13,7 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import gamecore.R;
+import com.example.lexy.materialtest.R;
+
 import gamecore.adapters.InfAdapter;
 import gamecore.fragment.NavigationDrawerFragment;
 import gamecore.fragment.PCFragment;
