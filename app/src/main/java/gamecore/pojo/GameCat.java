@@ -116,11 +116,11 @@ public class GameCat implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+
         dest.writeString(name);
-        dest.writeString(deck);
-        dest.writeString(releaseMonth);
+        dest.writeInt(id);
         dest.writeString(typeImage);
-        dest.writeInt(releaseDay);
+        dest.writeString(releaseMonth);
+        dest.writeString(deck);
     }
 }

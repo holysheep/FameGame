@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lexy.materialtest.R;
 
 import java.util.Collections;
 import java.util.List;
 
+import gamecore.R;
 import gamecore.pojo.Information;
 
 

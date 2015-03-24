@@ -21,7 +21,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.lexy.materialtest.R;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
+import gamecore.R;
 import gamecore.adapters.AdapterPCgames;
 import gamecore.extras.Constants;
 import gamecore.extras.Keys;

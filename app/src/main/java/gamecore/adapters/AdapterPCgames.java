@@ -10,10 +10,11 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.example.lexy.materialtest.R;
+
 
 import java.util.ArrayList;
 
+import gamecore.R;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
 
