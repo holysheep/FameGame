@@ -25,7 +25,8 @@
         android:id="@+id/gameTitle"
         android:text="@string/title"
         android:layout_alignTop="@+id/gameIcon"
-        android:layout_toEndOf="@+id/gameIcon"/>
+        android:layout_toEndOf="@+id/gameIcon"
+        />
 
 
 

@@ -1,6 +1,7 @@
 package gamecore.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.ImageLoader;
 import java.util.ArrayList;
 
 import gamecore.R;
+import gamecore.activities.SubActivity;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
 
@@ -26,12 +28,15 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     private LayoutInflater layoutInflater;
     private VolleySingleton volleySingleton;
     private ImageLoader imageLoader;
+    private Context context;
+    private ClickListener clickListener;
 
 
     public AdapterPCgames(Context context) {
         layoutInflater = LayoutInflater.from(context);
         volleySingleton = VolleySingleton.getInstance();
         imageLoader = volleySingleton.getmImageLoader();
+        this.context = context;
     }
 
 
@@ -55,6 +60,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         GameCat currentGamecat = listGames.get(position);
         holder.gameTitle.setText(currentGamecat.getName());
+
         String deck = currentGamecat.getDeck();
         if (deck != null) {
             holder.gameDescription.setText(currentGamecat.getDeck());
@@ -81,6 +87,10 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
         }
     }
 
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -88,7 +98,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     }
 
 
-    static class ViewHolderPCgames extends RecyclerView.ViewHolder {
+    class ViewHolderPCgames extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView gameIcon;
         private TextView gameTitle;
@@ -98,6 +108,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         public ViewHolderPCgames(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             gameIcon = (ImageView) itemView.findViewById(R.id.gameIcon);
             gameTitle = (TextView) itemView.findViewById(R.id.gameTitle);
             gameDay = (TextView) itemView.findViewById(R.id.dayRelease);
@@ -106,6 +117,18 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         }
 
+        @Override
+        public void onClick(View v) {
+            context.startActivity(new Intent(context, SubActivity.class));
+
+            if (clickListener != null){
+                clickListener.itemClicked(v, getPosition());
+            }
+        }
     }
 
+    public interface ClickListener {
+
+        public void itemClicked(View view, int position);
+    }
 }

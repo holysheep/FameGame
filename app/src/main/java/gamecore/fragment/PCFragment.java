@@ -1,6 +1,7 @@
 package gamecore.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import gamecore.activities.SubActivity;
 import static gamecore.extras.Keys.EndPointPC.KEY_ID;
 import static gamecore.extras.Keys.EndPointPC.KEY_NAME;
 import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
@@ -50,7 +52,7 @@ import gamecore.pojo.GameCat;
  * Use the {@link PCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PCFragment extends Fragment {
+public class PCFragment extends Fragment implements AdapterPCgames.ClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -242,6 +244,7 @@ public class PCFragment extends Fragment {
         textVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
         listPCnewgames = (RecyclerView) view.findViewById(R.id.listPCgames);
         adapterPCgames = new AdapterPCgames(getActivity());
+        adapterPCgames.setClickListener(this);
         listPCnewgames.setAdapter(adapterPCgames);
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState != null) {
@@ -251,5 +254,11 @@ public class PCFragment extends Fragment {
             sendJsonRequest();
         }
         return view;
+    }
+
+
+    @Override
+    public void itemClicked(View view, int position) {
+        startActivity(new Intent(getActivity(), SubActivity.class));
     }
 }
