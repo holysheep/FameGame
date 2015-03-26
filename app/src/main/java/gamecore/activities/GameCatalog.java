@@ -1,5 +1,6 @@
 package gamecore.activities;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,15 +21,20 @@ import gamecore.fragment.NavigationDrawerFragment;
 import gamecore.fragment.PCFragment;
 import gamecore.fragment.PS4Fragment;
 import gamecore.fragment.XboxFragment;
+import gamecore.services.MyService;
 import gamecore.views.SlidingTabLayout;
+import me.tatarka.support.job.JobInfo;
+import me.tatarka.support.job.JobScheduler;
 
 public class GameCatalog extends ActionBarActivity {
 
+    private static final int JOB_ID = 100 ;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
     private InfAdapter adapter;
+    private JobScheduler jobScheduler;
     private static final int PC_RESULTS = 0;
     private static final int PS4_RESULTS = 1;
     private static final int XBOX_RESULTS = 2;
@@ -37,14 +43,17 @@ public class GameCatalog extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        jobScheduler = JobScheduler.getInstance(this);
+        constructJob();
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+      /*  NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        */
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -111,5 +120,14 @@ public class GameCatalog extends ActionBarActivity {
         public int getCount() {
             return 3;
         }
+    }
+
+    public void constructJob() {
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
+        builder.setPeriodic(2000)
+                .setPersisted(true)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
+
+        jobScheduler.schedule(builder.build());
     }
 }
