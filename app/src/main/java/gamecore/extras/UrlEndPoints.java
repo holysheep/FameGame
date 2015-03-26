@@ -3,7 +3,7 @@ package gamecore.extras;
 
 public class UrlEndPoints {
 
-    public static final String URL_BOX_OFFICE = "http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json";
+    public static final String URL_PC_GAMES = "http://www.giantbomb.com/api/games/";
 
     public static final String URL_CHAR_QUESTION = "?";
 

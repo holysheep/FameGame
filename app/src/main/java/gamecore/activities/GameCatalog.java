@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +16,10 @@ import android.view.MenuItem;
 
 import gamecore.R;
 import gamecore.adapters.InfAdapter;
-import gamecore.fragment.NavigationDrawerFragment;
 import gamecore.fragment.PCFragment;
 import gamecore.fragment.PS4Fragment;
 import gamecore.fragment.XboxFragment;
-import gamecore.services.MyService;
+import gamecore.services.TaskService;
 import gamecore.views.SlidingTabLayout;
 import me.tatarka.support.job.JobInfo;
 import me.tatarka.support.job.JobScheduler;
@@ -123,7 +121,7 @@ public class GameCatalog extends ActionBarActivity {
     }
 
     public void constructJob() {
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, TaskService.class));
         builder.setPeriodic(2000)
                 .setPersisted(true)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);

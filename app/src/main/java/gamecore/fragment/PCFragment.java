@@ -23,16 +23,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import gamecore.activities.SubActivity;
-import static gamecore.extras.Keys.EndPointPC.KEY_ID;
-import static gamecore.extras.Keys.EndPointPC.KEY_NAME;
-import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
-import static gamecore.extras.Keys.EndPointPC.KEY_ICON;
-import static gamecore.extras.Keys.EndPointPC.KEY_IMAGE;
-import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
-import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
-import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,9 +31,18 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
 import gamecore.R;
+import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterPCgames;
 import gamecore.extras.Constants;
-import gamecore.extras.Keys;
+import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
+import static gamecore.extras.Keys.EndPointPC.KEY_ICON;
+import static gamecore.extras.Keys.EndPointPC.KEY_ID;
+import static gamecore.extras.Keys.EndPointPC.KEY_IMAGE;
+import static gamecore.extras.Keys.EndPointPC.KEY_NAME;
+import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
+import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
+import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
+import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
 
@@ -62,8 +61,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
             "?api_key=a94ac164a19a3e2c8c2c7b406d36866b746e7130&format=json" +
             "&filter=expected_release_quarter:2,platforms:94&sort=number_of_user_reviews:desc";
     private static final String STATE_GAMES = "state_games";
-
-
 
 
     // TODO: Rename and change types of parameters
@@ -114,33 +111,9 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        volleySingleton = VolleySingleton.getInstance();
-        requestQueue = volleySingleton.getRequestQueue();
-        sendJsonRequest();
+
+        //sendJsonRequest();
     }
-
-
-    private void sendJsonRequest() {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_PC_NEWGAMES,
-                (JSONObject) null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        textVolleyError.setVisibility(View.GONE);
-                        listPCGames = parseJSONResponse(response);
-                        adapterPCgames.setGamelist(listPCGames);
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                hadleVolleyError(error);
-            }
-        });
-        requestQueue.add(request);
-    }
-
 
     private void hadleVolleyError(VolleyError error) {
 
@@ -157,83 +130,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     }
 
 
-    private ArrayList<GameCat> parseJSONResponse(JSONObject response) {
-        ArrayList<GameCat> listPCGames = new ArrayList<>();
-
-        if (response != null && response.length() > 0) try {
-            if (response.has(KEY_RESULTS)) {
-                JSONArray arrayGames = response.getJSONArray(KEY_RESULTS);
-                for (int i = 0; i < arrayGames.length(); i++) {
-
-                    Integer id = -1;
-                    String name = Constants.NA;
-                    String deck = Constants.NA;
-                    Integer releaseDay = -1;
-                    String releaseMonth = Constants.NA;
-                    String typeImage = Constants.NA;
-
-                    JSONObject currentGame = arrayGames.getJSONObject(i);
-
-                    if (contains(currentGame, KEY_ID)) {
-                        id = currentGame.getInt(KEY_ID);
-                    }
-
-                    if (contains(currentGame, KEY_NAME)){
-                        name = currentGame.getString(KEY_NAME);
-                    }
-
-                    releaseDay = null;
-                    if (contains(currentGame, KEY_RELEASE_DAY)) {
-                        releaseDay = currentGame.getInt(KEY_RELEASE_DAY);
-                    }
-
-                    if (contains(currentGame, KEY_DECK)) {
-                        deck = currentGame.getString(KEY_DECK);
-                    }
-
-                    releaseMonth = null;
-
-                    if (contains(currentGame, KEY_RELEASE_MONTH)) {
-                        Integer monthNumber = currentGame.getInt(KEY_RELEASE_MONTH);
-                        releaseMonth = getMonth(monthNumber);
-                    }
-
-                    typeImage = null;
-                    if (contains(currentGame, KEY_IMAGE)) {
-                        JSONObject objectImage = currentGame.getJSONObject(KEY_IMAGE);
-
-                        if (contains(objectImage, KEY_ICON)) {
-                            typeImage = objectImage.getString(KEY_ICON);
-                        }
-                    }
-
-                    GameCat gameCat = new GameCat();
-                    gameCat.setId(Integer.parseInt(String.valueOf(id)));
-                    gameCat.setName(name);
-                    gameCat.setDeck(deck);
-                    gameCat.setReleaseDay(releaseDay);
-                    gameCat.setReleaseMonth(releaseMonth);
-                    gameCat.setTypeImage(typeImage);
-
-                    if (id != -1 && !name.equals(Constants.NA)) {
-                        listPCGames.add(gameCat);
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            Log.d("JSON Parser", "log" + e.getMessage());
-        }
-        return listPCGames;
-    }
-
-    private boolean contains (JSONObject jsonObject, String key) {
-        return (jsonObject != null && jsonObject.has(key) && !jsonObject.isNull(key))? true : false;
-    }
-
-
-    public String getMonth(int month) {
-        return new DateFormatSymbols().getMonths()[month - 1];
-    }
 
 
     @Override
@@ -251,8 +147,9 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
             listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
             adapterPCgames.setGamelist(listPCGames);
         } else {
-            sendJsonRequest();
+            listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
         }
+        adapterPCgames.setGamelist(listPCGames);
         return view;
     }
 
