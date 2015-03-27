@@ -3,6 +3,7 @@ package gamecore.activities;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -42,8 +43,12 @@ public class GameCatalog extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         jobScheduler = JobScheduler.getInstance(this);
-        constructJob();
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                constructJob();
+            }
+        }, 30000);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

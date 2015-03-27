@@ -30,9 +30,11 @@ import org.json.JSONObject;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
+import gamecore.Logging.L;
 import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterPCgames;
+import gamecore.callbacks.PCgamesLoadedListener;
 import gamecore.extras.Constants;
 import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
 import static gamecore.extras.Keys.EndPointPC.KEY_ICON;
@@ -45,13 +47,14 @@ import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
 import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
+import gamecore.task.TaskLoadGamesPCInterface;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PCFragment extends Fragment implements AdapterPCgames.ClickListener {
+public class PCFragment extends Fragment implements AdapterPCgames.ClickListener, PCgamesLoadedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -145,9 +148,13 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState != null) {
             listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
-            adapterPCgames.setGamelist(listPCGames);
+            //adapterPCgames.setGamelist(listPCGames);
         } else {
             listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
+            if (listPCGames.isEmpty()) {
+                L.t(getActivity(), "executing task from fragment");
+                new TaskLoadGamesPCInterface(this).execute();
+            }
         }
         adapterPCgames.setGamelist(listPCGames);
         return view;
@@ -157,5 +164,11 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     @Override
     public void itemClicked(View view, int position) {
         startActivity(new Intent(getActivity(), SubActivity.class));
+    }
+
+    @Override
+    public void onPCgamesLoaded(ArrayList<GameCat> listGames) {
+       L.t(getActivity(), "onRCgamesLoaded Frament");
+        adapterPCgames.setGamelist(listGames);
     }
 }
