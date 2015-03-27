@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import gamecore.R;
 import gamecore.activities.SubActivity;
+import gamecore.extras.Constants;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
 
@@ -27,7 +28,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     private ArrayList<GameCat> listGames = new ArrayList<>();
     private LayoutInflater layoutInflater;
     private VolleySingleton volleySingleton;
-    private ImageLoader imageLoader;
+    private ImageLoader mImageLoader;
     private Context context;
     private ClickListener clickListener;
 
@@ -35,7 +36,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     public AdapterPCgames(Context context) {
         layoutInflater = LayoutInflater.from(context);
         volleySingleton = VolleySingleton.getInstance();
-        imageLoader = volleySingleton.getmImageLoader();
+        mImageLoader = volleySingleton.getmImageLoader();
         this.context = context;
     }
 
@@ -71,9 +72,33 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
         if (currentGamecat.getReleaseMonth() != null)
             holder.gameMonth.setText(currentGamecat.getReleaseMonth());
 
-        String typeImage = currentGamecat.getTypeImage();
+        /* String typeImage = currentGamecat.getTypeImage();
         if (typeImage != null) {
-            imageLoader.get(typeImage, new ImageLoader.ImageListener() {
+            mImageLoader.get(typeImage, new ImageLoader.ImageListener() {
+                @Override
+                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                    holder.gameIcon.setImageBitmap(response.getBitmap());
+                }
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+        } */
+
+        String urlImage = currentGamecat.getTypeImage();
+        loadImages(urlImage, holder);
+    }
+
+    public void setClickListener(ClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+
+     public void loadImages(String typeImage, final ViewHolderPCgames holder) {
+        if (typeImage != null) {
+            mImageLoader.get(typeImage, new ImageLoader.ImageListener() {
                 @Override
                 public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                     holder.gameIcon.setImageBitmap(response.getBitmap());
@@ -85,10 +110,6 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
                 }
             });
         }
-    }
-
-    public void setClickListener(ClickListener clickListener) {
-        this.clickListener = clickListener;
     }
 
 

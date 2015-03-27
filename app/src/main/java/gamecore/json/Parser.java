@@ -35,9 +35,9 @@ public class Parser {
                     Integer id = -1;
                     String name = Constants.NA;
                     String deck = Constants.NA;
-                    Integer releaseDay = -1;
-                    String releaseMonth = Constants.NA;
-                    String typeImage = Constants.NA;
+                    Integer releaseDay;
+                    String releaseMonth;
+                    String typeImage;
 
                     JSONObject currentGame = arrayGames.getJSONObject(i);
 

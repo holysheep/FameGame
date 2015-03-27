@@ -98,7 +98,7 @@ public class DBgames {
 
     private static class GamesHelper extends SQLiteOpenHelper {
         private Context mContext;
-        private static final String DB_NAME = "games_db320004";
+        private static final String DB_NAME = "games_db4320004";
         private static final int DB_VERSION = 1;
         public static final String TABLE_PC = "games_pc";
         public static final String COLUMN_UID = "_id";
