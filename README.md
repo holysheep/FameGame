@@ -9,4 +9,4 @@ There is:
 * test JobScheduler API
 * only 1 working tab for now
 * test navigationDrawer fragment
-* test subactivity
+* test activity page
