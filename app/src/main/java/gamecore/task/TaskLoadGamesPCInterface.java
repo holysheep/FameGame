@@ -29,8 +29,7 @@ public class TaskLoadGamesPCInterface extends AsyncTask<Void, Void, ArrayList<Ga
 
     @Override
     protected ArrayList<GameCat> doInBackground(Void... params) {
-        ArrayList<GameCat> listGames = GameUtils.loadPCgames(requestQueue);
-        return listGames;
+        return GameUtils.loadPCgames(requestQueue);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 
 import gamecore.R;
 import gamecore.adapters.InfAdapter;
+import gamecore.fragment.NavigationDrawerFragment;
 import gamecore.fragment.PCFragment;
 import gamecore.fragment.PS4Fragment;
 import gamecore.fragment.XboxFragment;
@@ -53,10 +55,10 @@ public class GameCatalog extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-      /*  NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+       NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-        */
+
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));

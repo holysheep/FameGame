@@ -60,9 +60,9 @@ public class DBgames {
 
 
     public ArrayList<GameCat> getAllgamesBoxOffice() {
-        ArrayList<GameCat> listgames = new ArrayList<>();
+        ArrayList<GameCat> listGames = new ArrayList<>();
 
-        //get a list of columns to be retrieved, we need all of them
+        //get a list of columns to be retrieved
         String[] columns = {GamesHelper.COLUMN_UID,
                 GamesHelper.COLUMN_NAME,
                 GamesHelper.COLUMN_ICON,
@@ -70,26 +70,27 @@ public class DBgames {
                 GamesHelper.COLUMN_RELEASE_MONTH,
                 GamesHelper.COLUMN_DECK,
         };
-        Cursor cursor = mDatabase.query(GamesHelper.TABLE_PC, columns, null, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            L.m("loading entries " + cursor.getCount() + new Date(System.currentTimeMillis()));
-            do {
-                //create a new game object and retrieve the data from the cursor to be stored in this game object
-                GameCat game = new GameCat();
-                //each step is a 2 part process, find the index of the column first, find the data of that column using
-                //that index and finally set our blank game object to contain our data
-                game.setName(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_NAME)));
-                game.setTypeImage(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_ICON)));
-                game.setReleaseDay(cursor.getInt(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_DAY)));
-                game.setReleaseMonth(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_MONTH)));
-                game.setDeck(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_DECK)));
+        try (Cursor cursor = mDatabase.query(GamesHelper.TABLE_PC, columns, null, null, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                L.m("loading entries " + cursor.getCount() + new Date(System.currentTimeMillis()));
+                do {
+                    //create a new game object and retrieve the data from the cursor to be stored in this game object
+                    GameCat game = new GameCat();
+                    //each step is a 2 part process, find the index of the column first, find the data of that column using
+                    //that index and finally set our blank game object to contain our data
+                    game.setName(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_NAME)));
+                    game.setTypeImage(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_ICON)));
+                    game.setReleaseDay(cursor.getInt(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_DAY)));
+                    game.setReleaseMonth(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_MONTH)));
+                    game.setDeck(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_DECK)));
 
-                //add the game to the list of game objects which we plan to return
-                listgames.add(game);
+                    //add the game to the list of game objects which we plan to return
+                    listGames.add(game);
+                }
+                while (cursor.moveToNext());
             }
-            while (cursor.moveToNext());
         }
-        return listgames;
+        return listGames;
     }
 
     public void deleteAll() {
@@ -97,9 +98,7 @@ public class DBgames {
     }
 
     private static class GamesHelper extends SQLiteOpenHelper {
-        private Context mContext;
-        private static final String DB_NAME = "games_db4320004";
-        private static final int DB_VERSION = 1;
+
         public static final String TABLE_PC = "games_pc";
         public static final String COLUMN_UID = "_id";
         public static final String COLUMN_NAME = "name";
@@ -115,7 +114,9 @@ public class DBgames {
                 COLUMN_RELEASE_MONTH + " INTEGER," +
                 COLUMN_DECK + " TEXT" +
                 ");";
-
+        private static final String DB_NAME = "games_db5885679";
+        private static final int DB_VERSION = 1;
+        private Context mContext;
         public GamesHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);
             mContext = context;
@@ -135,7 +136,7 @@ public class DBgames {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             try {
                 L.m("upgrade pc table executed");
-                db.execSQL(" DROP_TABLE " + TABLE_PC + " IF EXIST;");
+                db.execSQL(" DROP TABLE " + TABLE_PC + " IF EXIST;");
                 onCreate(db);
             } catch (SQLiteException exception) {
                 L.t(mContext, exception + "");

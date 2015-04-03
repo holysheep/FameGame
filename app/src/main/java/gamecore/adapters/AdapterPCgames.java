@@ -42,9 +42,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
 
     public void setGamelist(ArrayList<GameCat> listGames) {
-
         this.listGames = listGames;
-
         notifyItemRangeChanged(0, listGames.size());
     }
 
