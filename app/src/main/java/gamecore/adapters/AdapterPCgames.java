@@ -60,7 +60,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         String deck = currentGamecat.getDeck();
         if (deck != null) {
-            holder.gameDescription.setText(currentGamecat.getDeck());
+            holder.gameDescription.setText(currentGamecat.getDeck() + "...");
         }
 
         if (currentGamecat.getReleaseDay() != null && currentGamecat.getReleaseDay() != 0) {
@@ -100,11 +100,9 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    holder.gameIcon.setImageResource(R.drawable.no_image);
                 }
             });
-        } else {
-            holder.gameIcon.setImageResource(R.drawable.no_image);
         }
     }
 

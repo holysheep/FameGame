@@ -29,15 +29,11 @@ public class MyApp extends Application {
     }
 
     public static MyApp getInstance() {
-
         return sInstance;
-
     }
 
     public static Context getAppContext() {
-
         return sInstance.getApplicationContext();
-
     }
 
 
