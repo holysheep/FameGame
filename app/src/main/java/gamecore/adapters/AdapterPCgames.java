@@ -12,12 +12,10 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
-
 import java.util.ArrayList;
 
 import gamecore.R;
 import gamecore.activities.SubActivity;
-import gamecore.extras.Constants;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
 
@@ -64,29 +62,26 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
         if (deck != null) {
             holder.gameDescription.setText(currentGamecat.getDeck());
         }
-        if (currentGamecat.getReleaseDay() != null)
+
+        if (currentGamecat.getReleaseDay() != null && currentGamecat.getReleaseDay() != 0) {
             holder.gameDay.setText(currentGamecat.getReleaseDay().toString());
+        } else {
+            holder.gameDay.setText("  ");
+        }
 
-        if (currentGamecat.getReleaseMonth() != null)
+        if (currentGamecat.getReleaseMonth() != null) {
             holder.gameMonth.setText(currentGamecat.getReleaseMonth());
-
-        /* String typeImage = currentGamecat.getTypeImage();
-        if (typeImage != null) {
-            mImageLoader.get(typeImage, new ImageLoader.ImageListener() {
-                @Override
-                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                    holder.gameIcon.setImageBitmap(response.getBitmap());
-                }
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-        } */
+        } else {
+            holder.gameMonth.setText("N/A");
+        }
 
         String urlImage = currentGamecat.getTypeImage();
-        loadImages(urlImage, holder);
+        if (urlImage != null) {
+            loadImages(urlImage, holder);
+        } else {
+            holder.gameIcon.setImageResource(R.drawable.no_image);
+        }
+
     }
 
     public void setClickListener(ClickListener clickListener) {
@@ -94,7 +89,8 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     }
 
 
-     public void loadImages(String typeImage, final ViewHolderPCgames holder) {
+    public void loadImages(String typeImage, final ViewHolderPCgames holder) {
+
         if (typeImage != null) {
             mImageLoader.get(typeImage, new ImageLoader.ImageListener() {
                 @Override
@@ -107,6 +103,8 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
                 }
             });
+        } else {
+            holder.gameIcon.setImageResource(R.drawable.no_image);
         }
     }
 
@@ -140,14 +138,13 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
         public void onClick(View v) {
             context.startActivity(new Intent(context, SubActivity.class));
 
-            if (clickListener != null){
+            if (clickListener != null) {
                 clickListener.itemClicked(v, getPosition());
             }
         }
     }
 
     public interface ClickListener {
-
         public void itemClicked(View view, int position);
     }
 }

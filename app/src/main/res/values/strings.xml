@@ -15,8 +15,8 @@
     <string name="pageNumber">The page Number is </string>
     <string name="title">Game Title</string>
     <string name="description">Description</string>
-    <string name="emptyMonth">""</string>
-    <string name="emptyDay">""</string>
+    <string name="emptyMonth">" "</string>
+    <string name="emptyDay">" "</string>
 
     <string-array name="tabs">
         <item>PC</item>

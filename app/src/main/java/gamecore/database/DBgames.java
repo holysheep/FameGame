@@ -30,8 +30,8 @@ public class DBgames {
         }
 
         //create a sql prepared statement
-        String sql = "INSERT INTO " + GamesHelper.TABLE_PC + " ("+ GamesHelper.COLUMN_UID + "," +
-                GamesHelper.COLUMN_NAME + "," + GamesHelper.COLUMN_ICON + "," + GamesHelper.COLUMN_RELEASE_DAY  +
+        String sql = "INSERT INTO " + GamesHelper.TABLE_PC + " (" + GamesHelper.COLUMN_UID + "," +
+                GamesHelper.COLUMN_NAME + "," + GamesHelper.COLUMN_ICON + "," + GamesHelper.COLUMN_RELEASE_DAY +
                 "," + GamesHelper.COLUMN_RELEASE_MONTH + "," + GamesHelper.COLUMN_DECK + ") VALUES (?,?,?,?,?,?);";
         //compile the statement and start a transaction
         SQLiteStatement statement = mDatabase.compileStatement(sql);
@@ -119,9 +119,10 @@ public class DBgames {
                 COLUMN_RELEASE_MONTH + " INTEGER," +
                 COLUMN_DECK + " TEXT" +
                 ");";
-        private static final String DB_NAME = "games_db098";
+        private static final String DB_NAME = "games_db";
         private static final int DB_VERSION = 1;
         private Context mContext;
+
         public GamesHelper(Context context) {
             super(context, DB_NAME, null, DB_VERSION);
             mContext = context;
@@ -145,7 +146,7 @@ public class DBgames {
                 onCreate(db);
             } catch (SQLiteException exception) {
                 L.t(mContext, exception + "");
-             }
+            }
         }
     }
 }

@@ -36,20 +36,6 @@ public class GameCat implements Parcelable {
         releaseDay = input.readInt();
     }
 
-    public GameCat(String name,
-                   int id,
-                   String typeImage,
-                   Integer releaseDay,
-                   String releaseMonth,
-                   String deck ) {
-
-        this.id = id;
-        this.name = name;
-        this.typeImage = typeImage;
-        this.releaseDay = releaseDay;
-        this.releaseMonth = releaseMonth;
-        this.deck = deck;
-    }
 
     public String getName() {
         return name;
@@ -120,6 +106,7 @@ public class GameCat implements Parcelable {
         dest.writeString(name);
         dest.writeInt(id);
         dest.writeString(typeImage);
+        dest.writeInt(releaseDay);
         dest.writeString(releaseMonth);
         dest.writeString(deck);
     }

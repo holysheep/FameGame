@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +14,11 @@ import android.widget.TextView;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
 import gamecore.Logging.L;
@@ -35,15 +26,6 @@ import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterPCgames;
 import gamecore.callbacks.PCgamesLoadedListener;
-import gamecore.extras.Constants;
-import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
-import static gamecore.extras.Keys.EndPointPC.KEY_ICON;
-import static gamecore.extras.Keys.EndPointPC.KEY_ID;
-import static gamecore.extras.Keys.EndPointPC.KEY_IMAGE;
-import static gamecore.extras.Keys.EndPointPC.KEY_NAME;
-import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
-import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
-import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
 import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
@@ -59,12 +41,10 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     public static final String URL_PC_NEWGAMES = "http://www.giantbomb.com/api/games/" +
             "?api_key=a94ac164a19a3e2c8c2c7b406d36866b746e7130&format=json" +
             "&filter=expected_release_quarter:2,platforms:94&sort=number_of_user_reviews:desc";
     private static final String STATE_GAMES = "state_games";
-
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -113,9 +93,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-        //sendJsonRequest();
     }
 
     private void hadleVolleyError(VolleyError error) {
@@ -133,8 +110,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -148,11 +123,10 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (savedInstanceState != null) {
             listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
-            //adapterPCgames.setGamelist(listPCGames);
         } else {
             listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
             if (listPCGames.isEmpty()) {
-                L.t(getActivity(), "executing task from fragment");
+                //L.t(getActivity(), "executing task from fragment");
                 new TaskLoadGamesPCInterface(this).execute();
             }
         }
@@ -168,7 +142,7 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
 
     @Override
     public void onPCgamesLoaded(ArrayList<GameCat> listGames) {
-       L.t(getActivity(), "onRCgamesLoaded Frament");
+        //L.t(getActivity(), "onRCgamesLoaded Fragment");
         adapterPCgames.setGamelist(listGames);
     }
 }
