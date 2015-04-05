@@ -30,7 +30,9 @@ public class DBgames {
         }
 
         //create a sql prepared statement
-        String sql = "INSERT INTO " + GamesHelper.TABLE_PC + " VALUES (?,?,?,?,?,?);";
+        String sql = "INSERT INTO " + GamesHelper.TABLE_PC + " ("+ GamesHelper.COLUMN_UID + "," +
+                GamesHelper.COLUMN_NAME + "," + GamesHelper.COLUMN_ICON + "," + GamesHelper.COLUMN_RELEASE_DAY  +
+                "," + GamesHelper.COLUMN_RELEASE_MONTH + "," + GamesHelper.COLUMN_DECK + ") VALUES (?,?,?,?,?,?);";
         //compile the statement and start a transaction
         SQLiteStatement statement = mDatabase.compileStatement(sql);
         mDatabase.beginTransaction();
@@ -39,16 +41,18 @@ public class DBgames {
             statement.clearBindings();
             //for a given column index, simply bind the data to be put inside that index
             statement.bindString(2, currentGame.getName());
-            L.m(currentGame.getReleaseMonth());
-            if (currentGame.getReleaseDay() != null) {
-                statement.bindString(3, String.valueOf(currentGame.getReleaseDay()));
-            }
-            if (currentGame.getReleaseMonth() != null) {
-                statement.bindString(4, currentGame.getReleaseMonth());
-            }
             if (currentGame.getTypeImage() != null) {
-                statement.bindString(5, currentGame.getTypeImage());
+                statement.bindString(3, currentGame.getTypeImage());
             }
+            if (currentGame.getReleaseDay() != null) {
+                Integer releaseDay = currentGame.getReleaseDay();
+                statement.bindLong(4, releaseDay);
+            }
+            L.m(currentGame.getReleaseMonth());
+            if (currentGame.getReleaseMonth() != null) {
+                statement.bindString(5, currentGame.getReleaseMonth());
+            }
+
             statement.bindString(6, currentGame.getDeck());
             statement.execute();
         }
@@ -77,9 +81,10 @@ public class DBgames {
                     //create a new game object and retrieve the data from the cursor to be stored in this game object
                     GameCat game = new GameCat();
                     //each step is a 2 part process, find the index of the column first, find the data of that column using
-                    //that index and finally set our blank game object to contain our data
+                    //that index and finally set our blank game object to contain data
                     game.setName(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_NAME)));
                     game.setTypeImage(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_ICON)));
+                    //Integer releaseDay = cursor.getInt(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_DAY))
                     game.setReleaseDay(cursor.getInt(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_DAY)));
                     game.setReleaseMonth(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_MONTH)));
                     game.setDeck(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_DECK)));
@@ -114,7 +119,7 @@ public class DBgames {
                 COLUMN_RELEASE_MONTH + " INTEGER," +
                 COLUMN_DECK + " TEXT" +
                 ");";
-        private static final String DB_NAME = "games_db5885679";
+        private static final String DB_NAME = "games_db098";
         private static final int DB_VERSION = 1;
         private Context mContext;
         public GamesHelper(Context context) {
