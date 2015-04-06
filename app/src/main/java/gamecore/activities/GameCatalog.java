@@ -103,10 +103,10 @@ public class GameCatalog extends ActionBarActivity {
                     fragment = PCFragment.newInstance("", "");
                     break;
                 case PS4_RESULTS:
-                    fragment = XboxFragment.newInstance("", "");
+                    fragment = PS4Fragment.newInstance("", "");
                     break;
                 case XBOX_RESULTS:
-                    fragment = PS4Fragment.newInstance("", "");
+                    fragment = XboxFragment.newInstance("", "");
                     break;
             }
             return fragment;

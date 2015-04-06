@@ -2,8 +2,10 @@ package gamecore.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,13 +21,21 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import gamecore.Logging.L;
 import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterPCgames;
 import gamecore.callbacks.PCgamesLoadedListener;
+import gamecore.materialtest.DividerItemDecoration;
 import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
@@ -36,7 +46,7 @@ import gamecore.task.TaskLoadGamesPCInterface;
  * Use the {@link PCFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PCFragment extends Fragment implements AdapterPCgames.ClickListener, PCgamesLoadedListener {
+public class PCFragment extends Fragment implements AdapterPCgames.ClickListener, PCgamesLoadedListener, SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,6 +66,7 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     private AdapterPCgames adapterPCgames;
     ArrayList<GameCat> listPCGames = new ArrayList<>();
     private TextView textVolleyError;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     /**
@@ -116,7 +127,11 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pc, container, false);
         textVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGames);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeColors(Color.GRAY);
         listPCnewgames = (RecyclerView) view.findViewById(R.id.listPCgames);
+        listPCnewgames.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         adapterPCgames = new AdapterPCgames(getActivity());
         adapterPCgames.setClickListener(this);
         listPCnewgames.setAdapter(adapterPCgames);
@@ -142,7 +157,14 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
 
     @Override
     public void onPCgamesLoaded(ArrayList<GameCat> listGames) {
-        //L.t(getActivity(), "onRCgamesLoaded Fragment");
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
         adapterPCgames.setGamelist(listGames);
+    }
+
+    @Override
+    public void onRefresh() {
+        new TaskLoadGamesPCInterface(this).execute();
     }
 }
