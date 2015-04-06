@@ -5,12 +5,20 @@
              tools:context="gamecore.fragment.PCFragment">
 
 <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
 
-        android:id="@+id/listPCgames"
+
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"/>
+        android:id="@+id/swipeGames">
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/listPCgames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/textVolleyError"
@@ -20,5 +28,4 @@
         android:padding="@dimen/size_word"
         android:textColor="#FF4444"
         android:visibility="gone"/>
-
 </FrameLayout>
