@@ -10,5 +10,6 @@ Not full working for now.
 There is:
 * test JobScheduler API
 * only 1 working tab for now
+* swiperefresh
 * test navigationDrawer fragment
 * test activity page
