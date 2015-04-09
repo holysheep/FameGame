@@ -60,7 +60,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         String deck = currentGamecat.getDeck();
         if (deck != null) {
-            holder.gameDescription.setText(currentGamecat.getDeck() + "...");
+            holder.gameDesc.setText(currentGamecat.getDeck() + "...");
         }
 
         if (currentGamecat.getReleaseDay() != null && currentGamecat.getReleaseDay() != 0) {
@@ -117,7 +117,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         private ImageView gameIcon;
         private TextView gameTitle;
-        private TextView gameDescription;
+        private TextView gameDesc;
         private TextView gameDay;
         private TextView gameMonth;
 
@@ -128,13 +128,14 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
             gameTitle = (TextView) itemView.findViewById(R.id.gameTitle);
             gameDay = (TextView) itemView.findViewById(R.id.dayRelease);
             gameMonth = (TextView) itemView.findViewById(R.id.monthRelease);
-            gameDescription = (TextView) itemView.findViewById(R.id.gameDescript);
+            gameDesc = (TextView) itemView.findViewById(R.id.gameDescript);
 
         }
 
         @Override
         public void onClick(View v) {
-            context.startActivity(new Intent(context, SubActivity.class));
+            int pos = getPosition();
+            context.startActivity(new Intent(context, SubActivity.class).putExtra("id", pos));
 
             if (clickListener != null) {
                 clickListener.itemClicked(v, getPosition());

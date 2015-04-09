@@ -1,19 +1,22 @@
 package gamecore.extras;
-import static gamecore.extras.UrlEndPoints.URL_PC_GAMES;
+
 import gamecore.materialtest.MyApp;
-import static gamecore.extras.UrlEndPoints.URL_CHAR_AMEPERSAND;
-import static gamecore.extras.UrlEndPoints.URL_CHAR_QUESTION;
-import static gamecore.extras.UrlEndPoints.URL_PARAM_API_KEY;
-import static gamecore.extras.UrlEndPoints.URL_PARAM_LIMIT;
 
 public class EndPoints {
 
-    public static String getRequestUrl(int limit) {
+    public static final String URL_PC_GAMES = "http://www.giantbomb.com/api/games/";
+    public static final String URL_PARAM_API_KEY = "api_key";
 
-    return URL_PC_GAMES
-            + URL_CHAR_QUESTION
-            + URL_PARAM_API_KEY + MyApp.API_KEY
-            + URL_CHAR_AMEPERSAND
-            + URL_PARAM_LIMIT + limit;
-}
+
+    public static String getRequestUrl() {
+
+        return appendApiKey(URL_PC_GAMES
+                + "?format=json"
+                + "&filter=expected_release_quarter:2"
+                + "&sort=number_of_user_reviews:desc&");
+    }
+
+    public static String appendApiKey(String base) {
+        return base + URL_PARAM_API_KEY + "=" + MyApp.API_KEY;
+    }
 }

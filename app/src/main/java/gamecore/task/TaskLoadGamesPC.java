@@ -1,6 +1,8 @@
 package gamecore.task;
 
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.android.volley.RequestQueue;
 
@@ -14,18 +16,23 @@ import gamecore.pojo.GameCat;
 import gamecore.services.TaskService;
 
 
-public class TaskLoadGamesPCInterface extends AsyncTask<Void, Void, ArrayList<GameCat>> {
+public class TaskLoadGamesPC extends AsyncTask<Void, Void, ArrayList<GameCat>> {
 
     private PCgamesLoadedListener myComponent;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
 
-    public TaskLoadGamesPCInterface(PCgamesLoadedListener myComponent) {
+    public TaskLoadGamesPC(PCgamesLoadedListener myComponent) {
         this.myComponent = myComponent;
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
     }
 
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
 
     @Override
     protected ArrayList<GameCat> doInBackground(Void... params) {

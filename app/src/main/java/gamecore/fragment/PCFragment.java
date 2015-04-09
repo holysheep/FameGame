@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.NetworkError;
@@ -21,16 +22,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import gamecore.Logging.L;
 import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterPCgames;
@@ -39,7 +32,7 @@ import gamecore.materialtest.DividerItemDecoration;
 import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.GameCat;
-import gamecore.task.TaskLoadGamesPCInterface;
+import gamecore.task.TaskLoadGamesPC;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,9 +44,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static final String URL_PC_NEWGAMES = "http://www.giantbomb.com/api/games/" +
-            "?api_key=a94ac164a19a3e2c8c2c7b406d36866b746e7130&format=json" +
-            "&filter=expected_release_quarter:2,platforms:94&sort=number_of_user_reviews:desc";
     private static final String STATE_GAMES = "state_games";
 
     // TODO: Rename and change types of parameters
@@ -142,7 +132,7 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
             listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
             if (listPCGames.isEmpty()) {
                 //L.t(getActivity(), "executing task from fragment");
-                new TaskLoadGamesPCInterface(this).execute();
+                new TaskLoadGamesPC(this).execute();
             }
         }
         adapterPCgames.setGamelist(listPCGames);
@@ -165,6 +155,6 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
 
     @Override
     public void onRefresh() {
-        new TaskLoadGamesPCInterface(this).execute();
+        new TaskLoadGamesPC(this).execute();
     }
 }

@@ -20,7 +20,7 @@ public class Requestor {
         JSONObject response = null;
         RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, PCFragment.URL_PC_NEWGAMES,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
                 (JSONObject) null, requestFuture, requestFuture);
         requestQueue.add(request);
         try {
