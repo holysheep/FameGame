@@ -5,6 +5,10 @@ import org.json.JSONObject;
 
 public class Utils {
         public static boolean contains(JSONObject jsonObject, String key) {
-            return jsonObject != null && jsonObject.has(key) && !jsonObject.isNull(key) ? true : false;
+            if (jsonObject!=null) {
+                return jsonObject.has(key) && !jsonObject.isNull(key);
+            }else{
+                return false;
+            }
         }
 }

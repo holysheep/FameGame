@@ -28,4 +28,5 @@
         android:padding="@dimen/size_word"
         android:textColor="#FF4444"
         android:visibility="gone"/>
+
 </FrameLayout>

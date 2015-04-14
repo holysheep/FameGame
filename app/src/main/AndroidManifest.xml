@@ -29,11 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="gamecore.activities.GameCatalog" />
         </activity>
-        <service
-            android:name=".services.TaskService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
 
+        <activity
+            android:name=".activities.BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
     </application>
 
 </manifest>

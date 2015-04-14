@@ -1,9 +1,7 @@
 package gamecore.activities;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,10 +17,7 @@ import gamecore.adapters.InfAdapter;
 import gamecore.fragment.PCFragment;
 import gamecore.fragment.PS4Fragment;
 import gamecore.fragment.XboxFragment;
-import gamecore.services.TaskService;
 import gamecore.views.SlidingTabLayout;
-import me.tatarka.support.job.JobInfo;
-import me.tatarka.support.job.JobScheduler;
 
 public class GameCatalog extends ActionBarActivity {
 
@@ -32,7 +27,6 @@ public class GameCatalog extends ActionBarActivity {
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
     private InfAdapter adapter;
-  //private JobScheduler jobScheduler;
     private static final int PC_RESULTS = 0;
     private static final int PS4_RESULTS = 1;
     private static final int XBOX_RESULTS = 2;
@@ -41,13 +35,6 @@ public class GameCatalog extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //jobScheduler = JobScheduler.getInstance(this);
-        /* new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                constructJob();
-            }
-        }, 30000); */
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -123,12 +110,4 @@ public class GameCatalog extends ActionBarActivity {
             return 3;
         }
     }
-    /* public void constructJob() {
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, TaskService.class));
-        builder.setPeriodic(2000)
-                .setPersisted(true)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
-
-        jobScheduler.schedule(builder.build());
-    } */
 }

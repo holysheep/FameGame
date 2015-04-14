@@ -1,7 +1,6 @@
 package gamecore.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +14,14 @@ import com.android.volley.toolbox.ImageLoader;
 import java.util.ArrayList;
 
 import gamecore.R;
-import gamecore.activities.SubActivity;
 import gamecore.network.VolleySingleton;
-import gamecore.pojo.GameCat;
+import gamecore.pojo.Game;
 
 
 public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHolderPCgames> {
 
 
-    private ArrayList<GameCat> listGames = new ArrayList<>();
+    private ArrayList<Game> listGames = new ArrayList<>();
     private LayoutInflater layoutInflater;
     private VolleySingleton volleySingleton;
     private ImageLoader mImageLoader;
@@ -39,7 +37,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     }
 
 
-    public void setGamelist(ArrayList<GameCat> listGames) {
+    public void setGamelist(ArrayList<Game> listGames) {
         this.listGames = listGames;
         notifyItemRangeChanged(0, listGames.size());
     }
@@ -55,7 +53,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolderPCgames holder, int position) {
 
-        GameCat currentGamecat = listGames.get(position);
+        Game currentGamecat = listGames.get(position);
         holder.gameTitle.setText(currentGamecat.getName());
 
         String deck = currentGamecat.getDeck();
@@ -75,7 +73,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
             holder.gameMonth.setText("N/A");
         }
 
-        String urlImage = currentGamecat.getTypeImage();
+        String urlImage = currentGamecat.getMainImage();
         if (urlImage != null) {
             loadImages(urlImage, holder);
         } else {
@@ -134,9 +132,7 @@ public class AdapterPCgames extends RecyclerView.Adapter<AdapterPCgames.ViewHold
 
         @Override
         public void onClick(View v) {
-            int pos = getPosition();
-            context.startActivity(new Intent(context, SubActivity.class).putExtra("id", pos));
-
+//            context.startActivity(new Intent(context, SubActivity.class));
             if (clickListener != null) {
                 clickListener.itemClicked(v, getPosition());
             }

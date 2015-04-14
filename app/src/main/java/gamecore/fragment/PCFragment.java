@@ -8,10 +8,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.NetworkError;
@@ -31,8 +31,8 @@ import gamecore.callbacks.PCgamesLoadedListener;
 import gamecore.materialtest.DividerItemDecoration;
 import gamecore.materialtest.MyApp;
 import gamecore.network.VolleySingleton;
-import gamecore.pojo.GameCat;
-import gamecore.task.TaskLoadGamesPC;
+import gamecore.pojo.Game;
+import gamecore.task.TaskLoadMain;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +54,7 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
     private RequestQueue requestQueue;
     private RecyclerView listPCnewgames;
     private AdapterPCgames adapterPCgames;
-    ArrayList<GameCat> listPCGames = new ArrayList<>();
+    ArrayList<Game> listPCGames = new ArrayList<>();
     private TextView textVolleyError;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -77,11 +77,11 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         return fragment;
     }
 
-    @Override
+    /*@Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(STATE_GAMES, listPCGames);
-    }
+    }*/
 
     public PCFragment() {
         // Required empty public constructor
@@ -126,15 +126,14 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         adapterPCgames.setClickListener(this);
         listPCnewgames.setAdapter(adapterPCgames);
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if (savedInstanceState != null) {
-            listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
-        } else {
+        //if (savedInstanceState != null) {
+        //    listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
+        //} else {
             listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
             if (listPCGames.isEmpty()) {
-                //L.t(getActivity(), "executing task from fragment");
-                new TaskLoadGamesPC(this).execute();
+                new TaskLoadMain(this).execute();
             }
-        }
+
         adapterPCgames.setGamelist(listPCGames);
         return view;
     }
@@ -142,19 +141,23 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
 
     @Override
     public void itemClicked(View view, int position) {
-        startActivity(new Intent(getActivity(), SubActivity.class));
+        int itemPosition = listPCnewgames.getChildPosition(view);
+        Log.e("detailUrl",listPCGames.get(itemPosition).getDetailUrl());
+        startActivity(new Intent(getActivity(), SubActivity.class)
+                .putExtra("gameDetailUrl", listPCGames.get(position).getDetailUrl()));
     }
 
     @Override
-    public void onPCgamesLoaded(ArrayList<GameCat> listGames) {
+    public void onPCgamesLoaded(ArrayList<Game> listGames) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
+        listPCGames = listGames;
         adapterPCgames.setGamelist(listGames);
     }
 
     @Override
     public void onRefresh() {
-        new TaskLoadGamesPC(this).execute();
+        new TaskLoadMain(this).execute();
     }
 }

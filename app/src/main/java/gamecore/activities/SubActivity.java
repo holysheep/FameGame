@@ -1,25 +1,34 @@
 package gamecore.activities;
 
 
-import android.os.Parcel;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
 import com.nineoldandroids.view.ViewHelper;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import gamecore.R;
-import gamecore.task.TaskLoadGamesPC;
+import gamecore.extras.EndPoints;
+import gamecore.json.Parser;
+import gamecore.json.Requestor;
+import gamecore.network.VolleySingleton;
+import gamecore.pojo.Game;
 
 public class SubActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
 
@@ -54,11 +63,64 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         mScrollView.setScrollViewCallbacks(this);
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
 
-        //int id = getIntent().getExtras().getInt("id");
-        //String gameUrl = "http://www.giantbomb.com/api/game/3030-" + id;
-
+        String detailUrl = getIntent().getStringExtra("gameDetailUrl");
+        new TaskLoadSinglePage().execute(detailUrl);
     }
 
+    public class TaskLoadSinglePage extends AsyncTask<String, Void, Game> {
+
+        private VolleySingleton volleySingleton;
+        private RequestQueue requestQueue;
+
+        public TaskLoadSinglePage() {
+            volleySingleton = VolleySingleton.getInstance();
+            requestQueue = volleySingleton.getRequestQueue();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Game doInBackground(String... params) {
+
+            JSONObject response = Requestor.sendJsonRequest(requestQueue, getSingleRequestUrl(params[0]));
+            if (response!=null) {
+                Game gameInfo = Parser.parseSinglePageResponse(response);
+                Log.e("game",gameInfo.getGenre());
+                return gameInfo;
+            }else{
+                Log.e("game","null");
+                return null;
+            }
+
+//            MyApp.getWritableDatabase().insertGamesPC(gameInfo, true); // need to change insert to update
+//            return gameInfo;
+        }
+
+        public String getSingleRequestUrl(String url) {
+            return EndPoints.appendApiKey(url + "?format=json&");
+        }
+
+        @Override
+        protected void onPostExecute(Game game) {
+//            if (game!=null)
+                loadGame(game);
+        }
+    }
+
+
+    public void loadGame(Game game) {
+        gameTitle.setText(game.getName());
+        gameDev.setText(game.getDeveloper());
+        gamePlatform.setText(game.getPlatform());
+        gameGenre.setText(game.getGenre());
+        gameDescription.setText(Html.fromHtml(game.getDescription()));
+//        Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.examplegame).
+//                into((com.squareup.picasso.Target) mImageView);
+        Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.examplegame).into((android.widget.ImageView) mImageView);
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
