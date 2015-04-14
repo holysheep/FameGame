@@ -179,7 +179,7 @@ public class Parser {
                         if (Utils.contains(objectGenre.getJSONObject(i),KEY_GENRENAME )) {
                             genre = objectGenre.getJSONObject(i).getString(KEY_GENRENAME);
                             if (i!=objectGenre.length()-1)
-                                genre+=", ";
+                                genre += ", ";
                         }
                     }
 

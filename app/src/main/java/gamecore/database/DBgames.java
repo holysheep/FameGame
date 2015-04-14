@@ -87,7 +87,7 @@ public class DBgames {
                     //that index and finally set our blank game object to contain data
                     game.setName(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_NAME)));
                     game.setMainImage(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_ICON)));
-                    game.setMainImage(cursor.getString(cursor.getColumnIndex(GamesHelper.DETAIL_URL)));
+                    game.setDetailUrl(cursor.getString(cursor.getColumnIndex(GamesHelper.DETAIL_URL)));
                     game.setReleaseDay(cursor.getInt(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_DAY)));
                     game.setReleaseMonth(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_RELEASE_MONTH)));
                     game.setDeck(cursor.getString(cursor.getColumnIndex(GamesHelper.COLUMN_DECK)));
