@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -44,6 +45,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
     private TextView gamePlatform;
     private TextView gameGenre;
     private TextView gameDescription;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -54,6 +56,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         gameTitle = (TextView) findViewById(R.id.singleGameTitle);
         gamePlatform = (TextView) findViewById(R.id.gamePlatform);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         gameDev = (TextView) findViewById(R.id.gameDeveloper);
         gameGenre = (TextView) findViewById(R.id.gameGenre);
         gameDescription = (TextView) findViewById(R.id.gameDescription);
@@ -83,6 +86,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -107,6 +111,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         protected void onPostExecute(Game game) {
             loadGame(game);
             setTitle(game.getName());
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -116,7 +121,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         gamePlatform.setText("Platforms: " + game.getPlatform());
         gameGenre.setText("Genre: " + game.getGenre());
         gameDescription.setText((Html.fromHtml(game.getDescription().replace("</tr><tr>",
-                "<br> &nbsp;").replaceAll("<img.+?>", "").replace("<h2>", "<h3>").replace("</li><li>", "<br>"))));
+                "<br> &nbsp;").replaceAll("<img.+?>", "<br>").replace("<h2>", "<h3>").replace("</li><li>", "<br><br>"))));
         Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.noimage).into((android.widget.ImageView) mImageView);
     }
 

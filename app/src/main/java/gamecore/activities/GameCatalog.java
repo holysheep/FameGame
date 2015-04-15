@@ -1,5 +1,7 @@
 package gamecore.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,12 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import gamecore.R;
-import gamecore.adapters.InfAdapter;
-import gamecore.fragment.PCFragment;
-import gamecore.fragment.PS4Fragment;
-import gamecore.fragment.XboxFragment;
+import gamecore.fragment.CardsFragment;
+import gamecore.fragment.EmptyFragment;
+import gamecore.fragment.NewGamesFragment;
 import gamecore.views.SlidingTabLayout;
 
 public class GameCatalog extends ActionBarActivity {
@@ -26,10 +29,9 @@ public class GameCatalog extends ActionBarActivity {
     private Toolbar toolbar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
-    private InfAdapter adapter;
-    private static final int PC_RESULTS = 0;
-    private static final int PS4_RESULTS = 1;
-    private static final int XBOX_RESULTS = 2;
+    private static final int NEWGAME_RESULTS = 0;
+    private static final int CARDS_RESULTS = 1;
+    private static final int NONAME_RESULTS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +69,21 @@ public class GameCatalog extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.navigate) {
-            startActivity(new Intent(this, SubActivity.class));
+        if (id == R.id.aboutapp) {
+            showAbout();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void showAbout() {
+        View messageView = getLayoutInflater().inflate(R.layout.about_app, null, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.app_icon);
+        builder.setTitle(R.string.app_name);
+        builder.setView(messageView);
+        builder.create();
+        builder.show();
     }
 
     class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -86,14 +99,14 @@ public class GameCatalog extends ActionBarActivity {
         public Fragment getItem(int num) {
             Fragment fragment = null;
             switch (num) {
-                case PC_RESULTS:
-                    fragment = PCFragment.newInstance("", "");
+                case NEWGAME_RESULTS:
+                    fragment = NewGamesFragment.newInstance("", "");
                     break;
-                case PS4_RESULTS:
-                    fragment = PS4Fragment.newInstance("", "");
+                case CARDS_RESULTS:
+                    fragment = CardsFragment.newInstance("", "");
                     break;
-                case XBOX_RESULTS:
-                    fragment = XboxFragment.newInstance("", "");
+                case NONAME_RESULTS:
+                    fragment = EmptyFragment.newInstance("", "");
                     break;
             }
             return fragment;

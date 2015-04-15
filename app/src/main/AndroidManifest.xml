@@ -30,10 +30,6 @@
                 android:value="gamecore.activities.GameCatalog" />
         </activity>
 
-        <activity
-            android:name=".activities.BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
     </application>
 
 </manifest>

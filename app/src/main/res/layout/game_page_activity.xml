@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:orientation="vertical">
@@ -12,8 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/gameImage"
@@ -22,7 +22,7 @@
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:maxHeight="180dp"
-                android:src="@drawable/examplegame"/>
+                android:src="@drawable/noimage"/>
 
             <View
                 android:id="@+id/anchor"
@@ -30,16 +30,23 @@
                 android:layout_height="@dimen/parallax_image_height"
                 android:minHeight="@dimen/parallax_image_height"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:layout_below="@+id/anchor">
+
             <TextView
                 android:id="@+id/singleGameTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/anchor"
-                android:gravity="center_horizontal"
-                android:paddingBottom="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingTop="8dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/material_blue_grey_800"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="8dp"
                 android:text="Carmageddon: Reincarnation"
                 android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -48,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/singleGameTitle"
-                android:gravity="center_horizontal"
+                android:layout_alignStart="@id/singleGameTitle"
                 android:paddingBottom="4dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
@@ -60,8 +67,8 @@
                 android:id="@+id/gamePlatform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignStart="@id/singleGameTitle"
                 android:layout_below="@id/gameDeveloper"
-                android:gravity="center_horizontal"
                 android:paddingBottom="4dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
@@ -73,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gamePlatform"
-                android:gravity="center_horizontal"
+                android:layout_alignStart="@id/singleGameTitle"
                 android:paddingBottom="4dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
@@ -84,12 +91,24 @@
                 android:id="@+id/gameDescription"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
+                android:typeface="normal"
+                android:layout_alignStart="@id/singleGameTitle"
                 android:layout_below="@id/gameGenre"
+                android:layout_marginRight="10dp"
                 android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="8dp"
-                android:text="@string/lipsum"/>
+                android:autoLink="web"
+                android:text=""/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    style="?android:attr/progressBarStyleLarge" />
+            </RelativeLayout>
 
         </RelativeLayout>
 
