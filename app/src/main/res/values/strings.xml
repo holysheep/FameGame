@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">GameCore</string>
     <string name="title_activity_main">Coming soon</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="next">Next</string>
-    <string name="title_activity_sub">Test game page</string>
+    <string name="title_activity_sub"></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="dummy_text">dummytext</string>
-    <string name="nextArrow" />
-    <string name="pageNumber">The page Number is </string>
     <string name="title">Game Title</string>
     <string name="description">Description</string>
     <string name="emptyMonth">" "</string>
     <string name="emptyDay">" "</string>
-
     <string-array name="tabs">
-        <item>PC</item>
-        <item>PS4</item>
-        <item>Xbox</item>
+        <item>New games</item>
+        <item>Cards</item>
+        <item>Reviews</item>
     </string-array>
     <string name="error_timeout">Your Connection Timed Out</string>
     <string name="error_network">Server Just Messed Up</string>
     <string name="error_parser">Data Received Was An Unreadable Mess</string>
-    <string name="action_dynamic_tabs_activity">Dynamic Tabs</string>
-    <string name="title_activity_recycler_item_animations">RecyclerItemAnimations
-    </string>
     <string name="action_recycler_item_animations">RecyclerItemAnimator</string>
     <string name="title_activity_activity_using_tab_library">SlidingTabLayoutActivity</string>
-    <string name="lipsum">Carmageddon: Reincarnation is a title developed by Stainless Games, the original developers of Carmageddon and Carmageddon II for PC. It is said to bring back the same humor and hilarious violence that made the first games such hits.
-
-Stainless Games started a Kickstarter campaign to help fund development, setting a goal of $400,000. This goal was met as of May 27, 2012.
-
-The game was originally set for a February 2013 release date. But in a "christmas message" from December 2012 so does it say that "Well, we’ve scheduled the work and now know it’s going to take us the best part of 2013 to complete it."</string>
-    <string name="title_activity_base">BaseActivity</string>
-
+    <string name="aboutbody">Catalog of the newest games, that will help you to be aware of great products for different platforms.</string>
+    <string name="about_credit">API by GiantBomb</string>
 </resources>
