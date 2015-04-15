@@ -129,7 +129,7 @@ public class PCFragment extends Fragment implements AdapterPCgames.ClickListener
         //if (savedInstanceState != null) {
         //    listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
         //} else {
-            listPCGames = MyApp.getWritableDatabase().getAllgamesBoxOffice();
+            listPCGames = MyApp.getWritableDatabase().getAllgames();
             if (listPCGames.isEmpty()) {
                 new TaskLoadMain(this).execute();
             }

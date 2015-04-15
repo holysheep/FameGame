@@ -10,8 +10,6 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 
 import gamecore.extras.Constants;
-import gamecore.pojo.Game;
-
 import static gamecore.extras.Keys.EndPointPC.KEY_DECK;
 import static gamecore.extras.Keys.EndPointPC.KEY_DESCRIPTION;
 import static gamecore.extras.Keys.EndPointPC.KEY_DETAIL_URL;
@@ -30,6 +28,7 @@ import static gamecore.extras.Keys.EndPointPC.KEY_PLATFORMS;
 import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_DAY;
 import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
 import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
+import gamecore.pojo.Game;
 
 
 public class Parser {
@@ -58,8 +57,8 @@ public class Parser {
                     }
                     if (Utils.contains(currentGame, KEY_DETAIL_URL)) {
                         detailUrl = currentGame.getString(KEY_DETAIL_URL);
-                    }else{
-                        detailUrl="no Url";
+                    } else {
+                        detailUrl = "no Url";
                     }
                     if (Utils.contains(currentGame, KEY_NAME)) {
                         name = currentGame.getString(KEY_NAME);
@@ -110,7 +109,7 @@ public class Parser {
 
 
     public static Game parseSinglePageResponse(JSONObject response) {
-        Log.e("PARSE singlepage",response.toString());
+        Log.e("PARSE singlepage", response.toString());
         Game gameDetail = new Game();
 
         if ((response.has(KEY_RESULTS))) {
@@ -118,7 +117,6 @@ public class Parser {
                 JSONObject gameInfo = response.getJSONObject(KEY_RESULTS);
 
                 String name = Constants.NA;
-                Integer id = -1;
                 String singlePageImage;
                 String platform;
                 String genre;
@@ -135,17 +133,12 @@ public class Parser {
 
                     JSONArray objectPlatforms = gameInfo.getJSONArray(KEY_PLATFORMS);
                     for (int i = 0; i < objectPlatforms.length(); i++) {
-                        if (Utils.contains(objectPlatforms.getJSONObject(i),KEY_PLATFORMNAME )) {
+                        if (Utils.contains(objectPlatforms.getJSONObject(i), KEY_PLATFORMNAME)) {
                             platform = objectPlatforms.getJSONObject(i).getString(KEY_PLATFORMNAME);
-                            if (i!=objectPlatforms.length()-1)
-                                platform+=", ";
+                            if (i != objectPlatforms.length() - 1)
+                                platform += ", ";
                         }
                     }
-
-//                    JSONObject objectPlatform = gameInfo.getJSONObject(KEY_PLATFORMS);
-//                    if (Utils.contains(objectPlatform, KEY_PLATFORMNAME)) {
-//                        platform = objectPlatform.getString(KEY_PLATFORMNAME);
-//                    }
                 }
 
 
@@ -158,17 +151,12 @@ public class Parser {
 
                     JSONArray objectDeveloper = gameInfo.getJSONArray(KEY_DEVELOPER);
                     for (int i = 0; i < objectDeveloper.length(); i++) {
-                        if (Utils.contains(objectDeveloper.getJSONObject(i),KEY_GETDEVELOPER )) {
+                        if (Utils.contains(objectDeveloper.getJSONObject(i), KEY_GETDEVELOPER)) {
                             developer = objectDeveloper.getJSONObject(i).getString(KEY_GETDEVELOPER);
-                            if (i!=objectDeveloper.length()-1)
-                                developer+=", ";
+                            if (i != objectDeveloper.length() - 1)
+                                developer += ", ";
                         }
                     }
-
-//                    JSONObject objectDeveloper = gameInfo.getJSONObject(KEY_DEVELOPER);
-//                    if (Utils.contains(objectDeveloper, KEY_GETDEVELOPER)) {
-//                        developer = objectDeveloper.getString(KEY_GETDEVELOPER);
-//                    }
                 }
 
                 genre = null;
@@ -176,17 +164,12 @@ public class Parser {
 
                     JSONArray objectGenre = gameInfo.getJSONArray(KEY_GENRE);
                     for (int i = 0; i < objectGenre.length(); i++) {
-                        if (Utils.contains(objectGenre.getJSONObject(i),KEY_GENRENAME )) {
+                        if (Utils.contains(objectGenre.getJSONObject(i), KEY_GENRENAME)) {
                             genre = objectGenre.getJSONObject(i).getString(KEY_GENRENAME);
-                            if (i!=objectGenre.length()-1)
+                            if (i != objectGenre.length() - 1)
                                 genre += ", ";
                         }
                     }
-
-//                    JSONObject objectGenre = gameInfo.getJSONObject(KEY_GENRE);
-//                    if (Utils.contains(objectGenre, KEY_GENRENAME)) {
-//                        genre = objectGenre.getString(KEY_GENRENAME);
-//                    }
                 }
 
                 singlePageImage = null;
@@ -199,7 +182,6 @@ public class Parser {
                     }
                 }
 
-//                Game gamePoints = new Game();
                 gameDetail.setPlatform(platform);
                 gameDetail.setName(name);
                 gameDetail.setDeveloper(developer);

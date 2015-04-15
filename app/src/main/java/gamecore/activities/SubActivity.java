@@ -7,6 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ import com.nineoldandroids.view.ViewHelper;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import gamecore.R;
 import gamecore.extras.EndPoints;
@@ -58,7 +61,6 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         mToolbarView = findViewById(R.id.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.colorPrimary)));
-
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
@@ -66,6 +68,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         String detailUrl = getIntent().getStringExtra("gameDetailUrl");
         new TaskLoadSinglePage().execute(detailUrl);
     }
+
 
     public class TaskLoadSinglePage extends AsyncTask<String, Void, Game> {
 
@@ -86,17 +89,14 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         protected Game doInBackground(String... params) {
 
             JSONObject response = Requestor.sendJsonRequest(requestQueue, getSingleRequestUrl(params[0]));
-            if (response!=null) {
+            if (response != null) {
                 Game gameInfo = Parser.parseSinglePageResponse(response);
-                Log.e("game",gameInfo.getGenre());
+                Log.e("game", gameInfo.getGenre());
                 return gameInfo;
-            }else{
-                Log.e("game","null");
+            } else {
+                Log.e("game", "null");
                 return null;
             }
-
-//            MyApp.getWritableDatabase().insertGamesPC(gameInfo, true); // need to change insert to update
-//            return gameInfo;
         }
 
         public String getSingleRequestUrl(String url) {
@@ -105,21 +105,19 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
 
         @Override
         protected void onPostExecute(Game game) {
-//            if (game!=null)
-                loadGame(game);
+            loadGame(game);
+            setTitle(game.getName());
         }
     }
-
 
     public void loadGame(Game game) {
         gameTitle.setText(game.getName());
         gameDev.setText(game.getDeveloper());
-        gamePlatform.setText(game.getPlatform());
-        gameGenre.setText(game.getGenre());
-        gameDescription.setText(Html.fromHtml(game.getDescription()));
-//        Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.examplegame).
-//                into((com.squareup.picasso.Target) mImageView);
-        Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.examplegame).into((android.widget.ImageView) mImageView);
+        gamePlatform.setText("Platforms: " + game.getPlatform());
+        gameGenre.setText("Genre: " + game.getGenre());
+        gameDescription.setText((Html.fromHtml(game.getDescription().replace("</tr><tr>",
+                "<br> &nbsp;").replaceAll("<img.+?>", "").replace("<h2>", "<h3>").replace("</li><li>", "<br>"))));
+        Picasso.with(this).load(game.getPageImage()).placeholder(R.drawable.noimage).into((android.widget.ImageView) mImageView);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class DBgames {
 
 
 
-    public ArrayList<Game> getAllgamesBoxOffice() {
+    public ArrayList<Game> getAllgames() {
         ArrayList<Game> listGames = new ArrayList<>();
 
         //get a list of columns to be retrieved
