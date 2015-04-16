@@ -13,15 +13,16 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
             <ImageView
                 android:id="@+id/gameImage"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:maxHeight="180dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/noimage"/>
 
             <View
@@ -33,81 +34,81 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:layout_below="@+id/anchor">
+                android:layout_below="@+id/anchor"
+                android:background="@android:color/white">
 
-            <TextView
-                android:id="@+id/singleGameTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="8dp"
-                android:paddingStart="15dp"
-                android:textColor="@color/material_blue_grey_800"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:text="Carmageddon: Reincarnation"
-                android:textAppearance="?android:attr/textAppearanceLarge"/>
+                <TextView
+                    android:id="@+id/singleGameTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingStart="15dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/singleGameTitle"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/material_blue_grey_800"/>
 
-            <TextView
-                android:id="@+id/gameDeveloper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/singleGameTitle"
-                android:layout_alignStart="@id/singleGameTitle"
-                android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="4dp"
-                android:text="Stainless Games Ltd."
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                <TextView
+                    android:id="@+id/gameDeveloper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/singleGameTitle"
+                    android:layout_below="@id/singleGameTitle"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="4dp"
+                    android:text="@string/gameDeveloper"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-            <TextView
-                android:id="@+id/gamePlatform"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/singleGameTitle"
-                android:layout_below="@id/gameDeveloper"
-                android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="4dp"
-                android:text="PC, XBOX, PS4"/>
+                <TextView
+                    android:id="@+id/gamePlatform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/singleGameTitle"
+                    android:layout_below="@id/gameDeveloper"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="4dp"
+                    android:text="@string/gamePlatform"/>
 
-            <TextView
-                android:id="@+id/gameGenre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/gamePlatform"
-                android:layout_alignStart="@id/singleGameTitle"
-                android:paddingBottom="4dp"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="4dp"
-                android:text="Driving/RacingVehicular Combat"/>
+                <TextView
+                    android:id="@+id/gameGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/singleGameTitle"
+                    android:layout_below="@id/gamePlatform"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="4dp"
+                    android:text="@string/gameGanre"/>
 
-            <TextView
-                android:id="@+id/gameDescription"
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:typeface="normal"
-                android:layout_alignStart="@id/singleGameTitle"
-                android:layout_below="@id/gameGenre"
-                android:layout_marginRight="10dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="8dp"
-                android:autoLink="web"
-                android:text=""/>
+                <TextView
+                    android:id="@+id/gameDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignStart="@id/singleGameTitle"
+                    android:layout_below="@id/gameGenre"
+                    android:layout_marginRight="10dp"
+                    android:autoLink="web"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="8dp"
+                    android:text="@string/gameDescruption"
+                    android:typeface="normal"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    style="?android:attr/progressBarStyleLarge" />
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
         </RelativeLayout>

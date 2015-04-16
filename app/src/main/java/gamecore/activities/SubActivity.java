@@ -67,6 +67,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
         mParallaxImageHeight = getResources().getDimensionPixelSize(R.dimen.parallax_image_height);
+        mImageView.setVisibility(View.INVISIBLE);
 
         String detailUrl = getIntent().getStringExtra("gameDetailUrl");
         new TaskLoadSinglePage().execute(detailUrl);
@@ -112,6 +113,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
             loadGame(game);
             setTitle(game.getName());
             progressBar.setVisibility(View.GONE);
+            mImageView.setVisibility(View.VISIBLE);
         }
     }
 

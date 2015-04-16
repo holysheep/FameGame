@@ -25,4 +25,9 @@
     <string name="title_activity_activity_using_tab_library">SlidingTabLayoutActivity</string>
     <string name="aboutbody">Catalog of the newest games, that will help you to be aware of great products for different platforms.</string>
     <string name="about_credit">API by GiantBomb</string>
+    <string name="gameDescruption"></string>
+    <string name="singleGameTitle"></string>
+    <string name="gameDeveloper"></string>
+    <string name="gamePlatform"></string>
+    <string name="gameGanre"></string>
 </resources>
