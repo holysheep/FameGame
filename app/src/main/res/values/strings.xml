@@ -30,4 +30,5 @@
     <string name="gameDeveloper"></string>
     <string name="gamePlatform"></string>
     <string name="gameGanre"></string>
+    <string name="title_activity_splash">Splash</string>
 </resources>
