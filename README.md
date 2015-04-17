@@ -8,7 +8,7 @@ Early app part for showing last released games.
 Not full working for now.
 
 There is:
-* test JobScheduler API
+* cards test
 * only 1 working tab for now
 * swiperefresh
 * test navigationDrawer fragment
