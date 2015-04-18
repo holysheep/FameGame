@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GameCore</string>
+    <string name="app_name">Fame Game</string>
     <string name="title_activity_main">Coming soon</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -30,5 +30,5 @@
     <string name="gameDeveloper"></string>
     <string name="gamePlatform"></string>
     <string name="gameGanre"></string>
-    <string name="title_activity_splash">Splash</string>
+    <string name="title_activity_splash">Fame Game</string>
 </resources>

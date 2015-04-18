@@ -50,33 +50,6 @@ public class GameCatalog extends ActionBarActivity {
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
-
-        ImageView fabIcon = new ImageView(this);
-        fabIcon.setImageResource(R.drawable.ic_receipt_black_48dp);
-
-        /* FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
-                .setContentView(fabIcon)
-                .build();
-
-        ImageView iconSortName = new ImageView(this);
-        iconSortName.setImageResource(R.drawable.ic_assessment_black_48dp);
-
-        ImageView iconSortDate = new ImageView(this);
-        iconSortDate.setImageResource(R.drawable.ic_assignment_black_48dp);
-
-        ImageView iconSortRatings= new ImageView(this);
-        iconSortRatings.setImageResource(R.drawable.ic_visibility_black_48dp);
-
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
-        SubActionButton buttonSortDate = itemBuilder.setContentView(iconSortDate).build();
-        SubActionButton buttonSortRating = itemBuilder.setContentView(iconSortRatings).build();
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(buttonSortName)
-                .addSubActionView(buttonSortDate)
-                .addSubActionView(buttonSortRating)
-                .attachTo(actionButton)
-                .build(); */
     }
 
     @Override
