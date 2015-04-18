@@ -1,9 +1,10 @@
 
-# GameCore app: NewGamesPreview
+# Fame game app: New Games Preview
 
 Early app part for showing last released games.
 
-![alt text](https://s-media-cache-ak0.pinimg.com/236x/c5/43/27/c54327989668ae9a8ddbcd5138f54ab4.jpg "Magic sword!")
+
+![alt text](http://i.imgur.com/hl3FFcR.png)
 
 Not full working for now.
 
