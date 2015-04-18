@@ -12,8 +12,7 @@
     <ImageView
         android:id="@+id/gameIcon"
         android:layout_width="@dimen/game_thumbnail_width"
-        android:layout_height="@dimen/game_thumbnail_height"
-   />
+        android:layout_height="@dimen/game_thumbnail_height"/>
 
     <TextView
         android:id="@+id/gameTitle"
@@ -32,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/gameDescript"
         android:layout_below="@+id/gameTitle"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/gameIcon"
         android:ellipsize="end"
         android:maxLength="100"

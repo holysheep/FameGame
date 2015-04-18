@@ -1,12 +1,8 @@
 package gamecore.pojo;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-
-public class GameCat implements Parcelable {
-    public static final Parcelable.Creator<GameCat> CREATOR
+public class Game {
+    /* public static final Parcelable.Creator<GameCat> CREATOR
             = new Parcelable.Creator<GameCat>() {
         public GameCat createFromParcel(Parcel in) {
             return new GameCat(in);
@@ -15,14 +11,32 @@ public class GameCat implements Parcelable {
         public GameCat[] newArray(int size) {
             return new GameCat[size];
         }
-    };
+    }; */
 
     private String name;
     private int id;
-    private String typeImage;
+    private String mainImage;
+    private String pageImage;
+
+    public String getPageImage() {
+        return pageImage;
+    }
+
+    public void setPageImage(String pageImage) {
+        this.pageImage = pageImage;
+    }
+
     private Integer releaseDay;
     private String releaseMonth;
     private String deck;
+    private String description;
+    private String developer;
+    private String platform;
+    private String genre;
+    private String detailUrl;
+
+    public Game() {
+    }
 
     public String getDescription() {
         return description;
@@ -56,22 +70,13 @@ public class GameCat implements Parcelable {
         this.genre = genre;
     }
 
-    private String description;
-    private String developer;
-    private String platform;
-    private String genre;
 
-
-    public GameCat() {
+    public String getDetailUrl() {
+        return detailUrl;
     }
 
-    public GameCat(Parcel input) {
-        id = input.readInt();
-        name = input.readString();
-        typeImage = input.readString();
-        deck = input.readString();
-        releaseMonth = input.readString();
-        releaseDay = input.readInt();
+    public void setDetailUrl(String detailUrl) {
+        this.detailUrl = detailUrl;
     }
 
 
@@ -91,12 +96,12 @@ public class GameCat implements Parcelable {
         this.id = id;
     }
 
-    public String getTypeImage() {
-        return typeImage;
+    public String getMainImage() {
+        return mainImage;
     }
 
-    public void setTypeImage(String typeImage) {
-        this.typeImage = typeImage;
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
     }
 
     public Integer getReleaseDay() {
@@ -123,15 +128,15 @@ public class GameCat implements Parcelable {
         this.deck = deck;
     }
 
-    @Override
-    public String toString() {
-        return  "\nID: " + id +
-                "\nName " + name +
-                "\nDate Day " + releaseDay +
-                "\nDate month " + releaseMonth +
-                "\nDeck " + deck +
-                "\n";
+   /* public GameCat(Parcel input) {
+        id = input.readInt();
+        name = input.readString();
+        mainImage = input.readString();
+        deck = input.readString();
+        releaseMonth = input.readString();
+        releaseDay = input.readInt();
     }
+
 
     @Override
     public int describeContents() {
@@ -143,9 +148,9 @@ public class GameCat implements Parcelable {
 
         dest.writeString(name);
         dest.writeInt(id);
-        dest.writeString(typeImage);
+        dest.writeString(mainImage);
         dest.writeInt(releaseDay);
         dest.writeString(releaseMonth);
         dest.writeString(deck);
-    }
+    } */
 }

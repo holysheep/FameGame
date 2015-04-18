@@ -1,8 +1,6 @@
 package gamecore.task;
 
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.android.volley.RequestQueue;
 
@@ -10,19 +8,17 @@ import java.util.ArrayList;
 
 import gamecore.callbacks.PCgamesLoadedListener;
 import gamecore.extras.GameUtils;
-import gamecore.fragment.PCFragment;
 import gamecore.network.VolleySingleton;
-import gamecore.pojo.GameCat;
-import gamecore.services.TaskService;
+import gamecore.pojo.Game;
 
 
-public class TaskLoadGamesPC extends AsyncTask<Void, Void, ArrayList<GameCat>> {
+public class TaskLoadMain extends AsyncTask<Void, Void, ArrayList<Game>> {
 
     private PCgamesLoadedListener myComponent;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
 
-    public TaskLoadGamesPC(PCgamesLoadedListener myComponent) {
+    public TaskLoadMain(PCgamesLoadedListener myComponent) {
         this.myComponent = myComponent;
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
@@ -35,12 +31,12 @@ public class TaskLoadGamesPC extends AsyncTask<Void, Void, ArrayList<GameCat>> {
     }
 
     @Override
-    protected ArrayList<GameCat> doInBackground(Void... params) {
-        return GameUtils.loadPCgames(requestQueue);
+    protected ArrayList<Game> doInBackground(Void... params) {
+        return GameUtils.loadGames(requestQueue);
     }
 
     @Override
-    protected void onPostExecute(ArrayList<GameCat> listGames) {
+    protected void onPostExecute(ArrayList<Game> listGames) {
         if (myComponent != null) {
             myComponent.onPCgamesLoaded(listGames);
         }

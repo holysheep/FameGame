@@ -1,9 +1,7 @@
 package gamecore.activities;
 
-import android.content.ComponentName;
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -13,16 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import gamecore.R;
-import gamecore.adapters.InfAdapter;
-import gamecore.fragment.PCFragment;
-import gamecore.fragment.PS4Fragment;
-import gamecore.fragment.XboxFragment;
-import gamecore.services.TaskService;
+import gamecore.fragment.CardsFragment;
+import gamecore.fragment.EmptyFragment;
+import gamecore.fragment.NewGamesFragment;
 import gamecore.views.SlidingTabLayout;
-import me.tatarka.support.job.JobInfo;
-import me.tatarka.support.job.JobScheduler;
 
 public class GameCatalog extends ActionBarActivity {
 
@@ -31,23 +27,14 @@ public class GameCatalog extends ActionBarActivity {
     private Toolbar toolbar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
-    private InfAdapter adapter;
-  //private JobScheduler jobScheduler;
-    private static final int PC_RESULTS = 0;
-    private static final int PS4_RESULTS = 1;
-    private static final int XBOX_RESULTS = 2;
+    private static final int NEWGAME_RESULTS = 0;
+    private static final int CARDS_RESULTS = 1;
+    private static final int NONAME_RESULTS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //jobScheduler = JobScheduler.getInstance(this);
-        /* new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                constructJob();
-            }
-        }, 30000); */
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -63,6 +50,33 @@ public class GameCatalog extends ActionBarActivity {
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
+
+        ImageView fabIcon = new ImageView(this);
+        fabIcon.setImageResource(R.drawable.ic_receipt_black_48dp);
+
+        /* FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(fabIcon)
+                .build();
+
+        ImageView iconSortName = new ImageView(this);
+        iconSortName.setImageResource(R.drawable.ic_assessment_black_48dp);
+
+        ImageView iconSortDate = new ImageView(this);
+        iconSortDate.setImageResource(R.drawable.ic_assignment_black_48dp);
+
+        ImageView iconSortRatings= new ImageView(this);
+        iconSortRatings.setImageResource(R.drawable.ic_visibility_black_48dp);
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        SubActionButton buttonSortName = itemBuilder.setContentView(iconSortName).build();
+        SubActionButton buttonSortDate = itemBuilder.setContentView(iconSortDate).build();
+        SubActionButton buttonSortRating = itemBuilder.setContentView(iconSortRatings).build();
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(buttonSortName)
+                .addSubActionView(buttonSortDate)
+                .addSubActionView(buttonSortRating)
+                .attachTo(actionButton)
+                .build(); */
     }
 
     @Override
@@ -80,10 +94,21 @@ public class GameCatalog extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.navigate) {
-            startActivity(new Intent(this, SubActivity.class));
+        if (id == R.id.aboutapp) {
+            showAbout();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void showAbout() {
+        View messageView = getLayoutInflater().inflate(R.layout.about_app, null, false);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.app_icon);
+        builder.setTitle(R.string.app_name);
+        builder.setView(messageView);
+        builder.create();
+        builder.show();
     }
 
     class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -99,14 +124,14 @@ public class GameCatalog extends ActionBarActivity {
         public Fragment getItem(int num) {
             Fragment fragment = null;
             switch (num) {
-                case PC_RESULTS:
-                    fragment = PCFragment.newInstance("", "");
+                case NEWGAME_RESULTS:
+                    fragment = NewGamesFragment.newInstance("", "");
                     break;
-                case PS4_RESULTS:
-                    fragment = PS4Fragment.newInstance("", "");
+                case CARDS_RESULTS:
+                    fragment = CardsFragment.newInstance("", "");
                     break;
-                case XBOX_RESULTS:
-                    fragment = XboxFragment.newInstance("", "");
+                case NONAME_RESULTS:
+                    fragment = EmptyFragment.newInstance("", "");
                     break;
             }
             return fragment;
@@ -123,12 +148,4 @@ public class GameCatalog extends ActionBarActivity {
             return 3;
         }
     }
-    /* public void constructJob() {
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, TaskService.class));
-        builder.setPeriodic(2000)
-                .setPersisted(true)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED);
-
-        jobScheduler.schedule(builder.build());
-    } */
 }
