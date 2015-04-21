@@ -13,4 +13,5 @@ There is:
 * only 1 working tab for now
 * swiperefresh
 * test navigationDrawer fragment
-* test activity page
+* floating button
+* about
