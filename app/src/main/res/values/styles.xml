@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
@@ -9,5 +8,19 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
+        <!-- Changing the small search icon when the view is expanded -->
+        <item name="searchViewSearchIcon">@drawable/ic_action_search</item>
+        <!-- Changing the cross icon to erase typed text -->
+        <item name="searchViewCloseIcon">@drawable/ic_action_remove</item>
+        <!-- Styling the background of the text field, i.e. blue bracket -->
+        <item name="searchViewTextField">@drawable/ab_textfield_searchview</item>
+        <!-- Styling the text view that displays the typed text query -->
+        <item name="searchViewAutoCompleteTextView">@style/AutoCompleteTextView</item>
     </style>
+    <style name="AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColor">@android:color/white</item>
+        <!-- If set to @null the cursor will be displayed using android:textColor -->
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
 </resources>
