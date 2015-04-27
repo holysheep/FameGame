@@ -78,12 +78,6 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         return fragment;
     }
 
-    /*@Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(STATE_GAMES, listPCGames);
-    }*/
-
     public NewGamesFragment() {
         // Required empty public constructor
     }
@@ -96,21 +90,6 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    private void hadleVolleyError(VolleyError error) {
-
-        textVolleyError.setVisibility(View.VISIBLE);
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            textVolleyError.setText(R.string.error_timeout);
-
-        } else if (error instanceof NetworkError) {
-            textVolleyError.setText(R.string.error_network);
-
-        } else if (error instanceof ParseError) {
-            textVolleyError.setText(R.string.error_parser);
-        }
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,11 +115,23 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         if (listPCGames.isEmpty()) {
             new TaskLoadMain(this).execute();
         }
-
         adapterNewGames.setGamelist(listPCGames);
         return view;
     }
 
+    public void handleVolleyError(VolleyError error) {
+
+        textVolleyError.setVisibility(View.VISIBLE);
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            textVolleyError.setText(R.string.error_timeout);
+
+        } else if (error instanceof NetworkError) {
+            textVolleyError.setText(R.string.error_network);
+
+        } else if (error instanceof ParseError) {
+            textVolleyError.setText(R.string.error_parser);
+        }
+    }
 
     @Override
     public void itemClicked(View view, int position) {

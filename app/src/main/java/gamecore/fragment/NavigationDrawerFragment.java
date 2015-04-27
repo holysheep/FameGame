@@ -58,7 +58,7 @@ public class NavigationDrawerFragment extends Fragment {
                 super.onDrawerOpened(drawerView);
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
-                    saveToPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, mUserLearnedDrawer + "");
+                    saveToPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, true + "");
                 }
                 getActivity().invalidateOptionsMenu();
             }
