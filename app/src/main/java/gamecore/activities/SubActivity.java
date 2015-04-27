@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,13 +23,11 @@ import com.nineoldandroids.view.ViewHelper;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import gamecore.R;
 import gamecore.extras.EndPoints;
 import gamecore.json.Parser;
-import gamecore.json.Requestor;
+import gamecore.json.Requester;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.Game;
 
@@ -93,7 +90,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         @Override
         protected Game doInBackground(String... params) {
 
-            JSONObject response = Requestor.sendJsonRequest(requestQueue, getSingleRequestUrl(params[0]));
+            JSONObject response = Requester.sendJsonRequest(requestQueue, getSingleRequestUrl(params[0]));
             if (response != null) {
                 Game gameInfo = Parser.parseSinglePageResponse(response);
                 Log.e("game", gameInfo.getGenre());

@@ -16,6 +16,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/white">
 
+            <!-- Background image -->
             <ImageView
                 android:id="@+id/gameImage"
                 android:layout_width="fill_parent"

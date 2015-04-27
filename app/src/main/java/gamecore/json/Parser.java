@@ -33,6 +33,7 @@ import gamecore.pojo.Game;
 
 public class Parser {
 
+
     public static ArrayList<Game> parseJSONResponse(JSONObject response) {
         ArrayList<Game> listPCGames = new ArrayList<>();
 
@@ -46,9 +47,8 @@ public class Parser {
                     String deck = Constants.NA;
                     Integer releaseDay;
                     String releaseMonth;
-                    String detailUrl = Constants.NA;
+                    String detailUrl;
                     String mainPageImage;
-
 
                     JSONObject currentGame = arrayGames.getJSONObject(i);
 

@@ -104,12 +104,10 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
         }
     }
 
-
     @Override
     public int getItemCount() {
         return listGames.size();
     }
-
 
     class ViewHolderGames extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -123,6 +121,7 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
             super(itemView);
             itemView.setOnClickListener(this);
             gameIcon = (ImageView) itemView.findViewById(R.id.gameIcon);
+            gameIcon.setContentDescription("Test");
             gameTitle = (TextView) itemView.findViewById(R.id.gameTitle);
             gameDay = (TextView) itemView.findViewById(R.id.dayRelease);
             gameMonth = (TextView) itemView.findViewById(R.id.monthRelease);
@@ -132,8 +131,6 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
 
         @Override
         public void onClick(View v) {
-//            context.startActivity(new Intent(context, SubActivity.class));
-
             if (clickListener != null) {
                 clickListener.itemClicked(v, getPosition());
             }

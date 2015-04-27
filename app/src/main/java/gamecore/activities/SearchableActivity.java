@@ -1,21 +1,58 @@
 package gamecore.activities;
 
 import android.app.ListActivity;
-import android.support.v7.app.ActionBarActivity;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.SearchView;
 
 import gamecore.R;
 
 public class SearchableActivity extends ListActivity {
 
+    SearchView mSearchView = null;
+    Toolbar mToolbar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
+
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.title_search);
+        mToolbar.setNavigationIcon(R.drawable.fab_shadow);
+
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            doSearch(query);
+        }
+    }
+
+    private void doSearch(String queryStr) {
+        // TODO: get a Cursor, prepare the ListAdapter and set it
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        // TODO: call detail activity for clicked entry
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

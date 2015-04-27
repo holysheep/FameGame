@@ -6,13 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import gamecore.R;
 import gamecore.fragment.CardsFragment;
@@ -20,10 +18,8 @@ import gamecore.fragment.EmptyFragment;
 import gamecore.fragment.NewGamesFragment;
 import gamecore.views.SlidingTabLayout;
 
-public class GameCatalog extends ActionBarActivity {
+public class GameCatalog extends AppCompatActivity {
 
-    private static final int JOB_ID = 100;
-    private RecyclerView recyclerView;
     private Toolbar toolbar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
@@ -37,14 +33,13 @@ public class GameCatalog extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
        /*
-       //Test NavigationDrawer
        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar); */
-
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -62,7 +57,6 @@ public class GameCatalog extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -75,9 +69,7 @@ public class GameCatalog extends ActionBarActivity {
 
     protected void showAbout() {
         View messageView = getLayoutInflater().inflate(R.layout.about_app, null, false);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.drawable.app_icon);
+        AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
         builder.setTitle(R.string.app_name);
         builder.setView(messageView);
         builder.create();
