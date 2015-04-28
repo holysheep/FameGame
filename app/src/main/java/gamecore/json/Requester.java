@@ -24,18 +24,13 @@ public class Requester {
         RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
-                (JSONObject) null, requestFuture, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
+                (JSONObject) null, requestFuture, requestFuture);
+        requestQueue.add(request);
         try {
             response = requestFuture.get(30000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             L.m(e + "");
         }
-        requestQueue.add(request);
         return response;
     }
 }
