@@ -50,9 +50,7 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private VolleySingleton volleySingleton;
-    private ImageLoader imageLoader;
-    private RequestQueue requestQueue;
+
     private RecyclerView listPCnewgames;
     private AdapterNewGames adapterNewGames;
     ArrayList<Game> listPCGames = new ArrayList<>();
@@ -108,9 +106,6 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         adapterNewGames.setClickListener(this);
         listPCnewgames.setAdapter(adapterNewGames);
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //if (savedInstanceState != null) {
-        //    listPCGames = savedInstanceState.getParcelableArrayList(STATE_GAMES);
-        //} else {
         listPCGames = MyApp.getWritableDatabase().getAllgames();
         if (listPCGames.isEmpty()) {
             new TaskLoadMain(this).execute();
