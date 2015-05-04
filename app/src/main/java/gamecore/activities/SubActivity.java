@@ -59,7 +59,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         gameDescription = (TextView) findViewById(R.id.gameDescription);
         mImageView = findViewById(R.id.gameImage);
         mToolbarView = findViewById(R.id.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.colorPrimary)));
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
@@ -140,12 +140,10 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
 
     @Override
     public void onDownMotionEvent() {
-
     }
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-
     }
 
     @Override

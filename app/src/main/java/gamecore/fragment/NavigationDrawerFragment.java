@@ -17,8 +17,8 @@ import gamecore.R;
 
 public class NavigationDrawerFragment extends Fragment {
 
-    public static final String PREF_FILE_NAME = "testpref";
-    public static final String KEY_USER_LEARNED_DRAWER = "user_learned drawer";
+    public static final String PREF_FILE_NAME = "preference_key";
+    public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
 
@@ -29,7 +29,6 @@ public class NavigationDrawerFragment extends Fragment {
     public NavigationDrawerFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,6 @@ public class NavigationDrawerFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_navigation_drawer_layout, container, false);
     }
 
-
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
@@ -62,7 +60,6 @@ public class NavigationDrawerFragment extends Fragment {
                 }
                 getActivity().invalidateOptionsMenu();
             }
-
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -88,8 +85,6 @@ public class NavigationDrawerFragment extends Fragment {
                 mDrawerToggle.syncState();
             }
         });
-
-
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 

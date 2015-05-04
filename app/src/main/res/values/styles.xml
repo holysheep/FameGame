@@ -8,10 +8,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="android:windowBackground">@android:color/white</item>
         <!-- Changing the small search icon when the view is expanded -->
-
     </style>
+
     <style name="AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
         <item name="android:textColor">@android:color/white</item>
         <!-- If set to @null the cursor will be displayed using android:textColor -->
