@@ -45,7 +45,7 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
 
     @Override
     public ViewHolderGames onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.row_pc_games, parent, false);
+        View view = layoutInflater.inflate(R.layout.pc_games_row, parent, false);
         return new ViewHolderGames(view);
     }
 
@@ -53,27 +53,27 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolderGames holder, int position) {
 
-        Game currentGamecat = listGames.get(position);
-        holder.gameTitle.setText(currentGamecat.getName());
+        Game currentGame = listGames.get(position);
+        holder.gameTitle.setText(currentGame.getName());
 
-        String deck = currentGamecat.getDeck();
+        String deck = currentGame.getDeck();
         if (deck != null) {
-            holder.gameDesc.setText(currentGamecat.getDeck() + "...");
+            holder.gameDesc.setText(currentGame.getDeck() + "...");
         }
 
-        if (currentGamecat.getReleaseDay() != null && currentGamecat.getReleaseDay() != 0) {
-            holder.gameDay.setText(currentGamecat.getReleaseDay().toString());
+        if (currentGame.getReleaseDay() != null && currentGame.getReleaseDay() != 0) {
+            holder.gameDay.setText(currentGame.getReleaseDay().toString());
         } else {
             holder.gameDay.setText("  ");
         }
 
-        if (currentGamecat.getReleaseMonth() != null) {
-            holder.gameMonth.setText(currentGamecat.getReleaseMonth());
+        if (currentGame.getReleaseMonth() != null) {
+            holder.gameMonth.setText(currentGame.getReleaseMonth());
         } else {
             holder.gameMonth.setText("N/A");
         }
 
-        String urlImage = currentGamecat.getMainImage();
+        String urlImage = currentGame.getMainImage();
         if (urlImage != null) {
             loadImages(urlImage, holder);
         } else {
@@ -138,6 +138,6 @@ public class AdapterNewGames extends RecyclerView.Adapter<AdapterNewGames.ViewHo
     }
 
     public interface ClickListener {
-        public void itemClicked(View view, int position);
+        void itemClicked(View view, int position);
     }
 }

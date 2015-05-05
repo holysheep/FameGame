@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
@@ -31,7 +32,7 @@ import gamecore.json.Requester;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.Game;
 
-public class SubActivity extends ActionBarActivity implements ObservableScrollViewCallbacks {
+public class SubActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
 
     private View mImageView;
     private View mToolbarView;
@@ -59,7 +60,7 @@ public class SubActivity extends ActionBarActivity implements ObservableScrollVi
         gameDescription = (TextView) findViewById(R.id.gameDescription);
         mImageView = findViewById(R.id.gameImage);
         mToolbarView = findViewById(R.id.toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getDelegate().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, getResources().getColor(R.color.colorPrimary)));
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
         mScrollView.setScrollViewCallbacks(this);
