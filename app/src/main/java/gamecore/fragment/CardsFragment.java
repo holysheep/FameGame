@@ -70,10 +70,9 @@ public class CardsFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.cardList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         adapter = new CardsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return view;
     }
 
