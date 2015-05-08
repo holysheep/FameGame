@@ -1,6 +1,9 @@
 package gamecore.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import de.keyboardsurfer.android.widget.crouton.Configuration;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import gamecore.R;
 import gamecore.fragment.CardsFragment;
 import gamecore.fragment.EmptyFragment;
@@ -45,6 +51,26 @@ public class GameCatalog extends AppCompatActivity {
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
+        isNetworkAvailable(this);
+    }
+
+    public boolean isNetworkAvailable(Context context){
+        ConnectivityManager connMan=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network=connMan.getActiveNetworkInfo();
+        if (network == null || !network.isConnected()) {
+            final Crouton crouton = Crouton.makeText(this, "Please check your internet connection", Style.ALERT)
+                    .setConfiguration(new Configuration.Builder().setDuration(Configuration.DURATION_INFINITE).build());
+
+            crouton.setOnClickListener(new View.OnClickListener() {
+                @ Override
+                public void onClick(View v) {
+                    Crouton.hide(crouton);
+                }
+            });
+            crouton.show();
+            return false;
+        }
+        return true;
     }
 
     @Override

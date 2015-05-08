@@ -25,6 +25,8 @@ import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterNewGames;
