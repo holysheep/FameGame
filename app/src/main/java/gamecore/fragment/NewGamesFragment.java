@@ -1,8 +1,11 @@
 package gamecore.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,28 +17,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.RequestQueue;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 import gamecore.R;
 import gamecore.activities.SubActivity;
 import gamecore.adapters.AdapterNewGames;
 import gamecore.callbacks.PCgamesLoadedListener;
 import gamecore.materialtest.DividerItemDecoration;
 import gamecore.materialtest.MyApp;
-import gamecore.network.VolleySingleton;
 import gamecore.pojo.Game;
 import gamecore.task.TaskLoadMain;
+import tr.xip.errorview.ErrorView;
+import tr.xip.errorview.HttpStatusCodes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,6 +53,8 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
     ArrayList<Game> listPCGames = new ArrayList<>();
     private TextView textVolleyError;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private View view;
+    ErrorView errorView;
 
 
     /**
@@ -95,7 +92,7 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_newgames, container, false);
+        view = inflater.inflate(R.layout.fragment_newgames, container, false);
         textVolleyError = (TextView) view.findViewById(R.id.textVolleyError);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeGames);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -109,25 +106,35 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         listPCnewgames.setAdapter(adapterNewGames);
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
         listPCGames = MyApp.getWritableDatabase().getAllgames();
-        if (listPCGames.isEmpty()) {
-            new TaskLoadMain(this).execute();
+        if(isNetworkAvailable(getActivity())){
+            if (listPCGames.isEmpty()) {
+                new TaskLoadMain(this).execute();
+            }
         }
+
         adapterNewGames.setGamelist(listPCGames);
         return view;
     }
 
-    public void handleVolleyError(VolleyError error) {
-
-        textVolleyError.setVisibility(View.VISIBLE);
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            textVolleyError.setText(R.string.error_timeout);
-
-        } else if (error instanceof NetworkError) {
-            textVolleyError.setText(R.string.error_network);
-
-        } else if (error instanceof ParseError) {
-            textVolleyError.setText(R.string.error_parser);
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = connMan.getActiveNetworkInfo();
+        errorView = (ErrorView) view.findViewById(R.id.error_view);
+        if (network == null || !network.isConnected()) {
+            errorView.setOnRetryListener(new ErrorView.RetryListener() {
+                @Override
+                public void onRetry() {
+                    errorView.setError(HttpStatusCodes.CODE_408);
+                    errorView.setTitle("error title");
+                    errorView.setTitleColor(getResources().getColor(android.R.color.holo_orange_dark));
+                    errorView.setSubtitleColor(getResources().getColor(android.R.color.holo_green_dark));
+                }
+            });
+            errorView.setVisibility(View.VISIBLE);
+            return false;
         }
+        errorView.setVisibility(View.GONE);
+        return true;
     }
 
     @Override
@@ -148,8 +155,8 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         adapterNewGames.setGamelist(listGames);
     }
 
-    @Override
     public void onRefresh() {
         new TaskLoadMain(this).execute();
+        isNetworkAvailable(getActivity());
     }
 }
