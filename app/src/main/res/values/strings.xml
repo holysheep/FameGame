@@ -34,4 +34,10 @@
     <string name="search_hint">Search game</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="title_search">Search</string>
+    <string name="click_to_check">Click to check</string>
+    <string name="enable_checkbox">Enable checkbox</string>
+    <string name="display_name">Display name</string>
+    <string name="show_notifications">Show notifications</string>
+    <string name="main">Main</string>
+    <string name="other">Other</string>
 </resources>

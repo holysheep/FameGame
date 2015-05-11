@@ -1,9 +1,7 @@
 package gamecore.activities;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,14 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.keyboardsurfer.android.widget.crouton.Configuration;
-import de.keyboardsurfer.android.widget.crouton.Crouton;
-import de.keyboardsurfer.android.widget.crouton.Style;
 import gamecore.R;
 import gamecore.fragment.CardsFragment;
 import gamecore.fragment.EmptyFragment;
 import gamecore.fragment.NavigationDrawerFragment;
 import gamecore.fragment.NewGamesFragment;
+import gamecore.settings.SettingsActivity;
 import gamecore.views.SlidingTabLayout;
 
 public class GameCatalog extends AppCompatActivity {
@@ -53,8 +49,6 @@ public class GameCatalog extends AppCompatActivity {
         mTabs.setViewPager(mPager);
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,6 +61,8 @@ public class GameCatalog extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent settingsActivity = new Intent(getBaseContext(), SettingsActivity.class);
+            startActivity(settingsActivity);
             return true;
         }
         if (id == R.id.aboutapp) {
