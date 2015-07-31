@@ -1,7 +1,7 @@
 
 # Fame game app: New Games Preview
 
-Early app part for showing last released games.
+Early Android app part for showing last released games.
 
 
 ![alt text](http://i.imgur.com/hl3FFcR.png)
