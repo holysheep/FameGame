@@ -41,4 +41,6 @@
     <string name="main">Main</string>
     <string name="other">Other</string>
     <string name="settings_title">Settings</string>
+    <string name="action_share">Share</string>
+
 </resources>

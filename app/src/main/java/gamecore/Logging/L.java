@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-
 public class L {
 
     public static void m(String message) {
@@ -18,5 +17,4 @@ public class L {
     public static void T(Context context, String message) {
         Toast.makeText(context, message + "", Toast.LENGTH_LONG).show();
     }
-
 }

@@ -39,7 +39,7 @@ public class GameCatalog extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getDelegate().getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-       NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
         mPager = (ViewPager) findViewById(R.id.pager);

@@ -30,9 +30,7 @@ import static gamecore.extras.Keys.EndPointPC.KEY_RELEASE_MONTH;
 import static gamecore.extras.Keys.EndPointPC.KEY_RESULTS;
 import gamecore.pojo.Game;
 
-
 public class Parser {
-
 
     public static ArrayList<Game> parseJSONResponse(JSONObject response) {
         ArrayList<Game> listPCGames = new ArrayList<>();
@@ -123,14 +121,12 @@ public class Parser {
                 String description = Constants.NA;
                 String developer;
 
-
                 if (Utils.contains(gameInfo, KEY_DESCRIPTION)) {
                     description = gameInfo.getString(KEY_DESCRIPTION);
                 }
 
                 platform = null;
                 if (Utils.contains(gameInfo, KEY_PLATFORMS)) {
-
                     JSONArray objectPlatforms = gameInfo.getJSONArray(KEY_PLATFORMS);
                     for (int i = 0; i < objectPlatforms.length(); i++) {
                         if (Utils.contains(objectPlatforms.getJSONObject(i), KEY_PLATFORMNAME)) {
@@ -141,14 +137,12 @@ public class Parser {
                     }
                 }
 
-
                 if (Utils.contains(gameInfo, KEY_NAME)) {
                     name = gameInfo.getString(KEY_NAME);
                 }
 
                 developer = null;
                 if (Utils.contains(gameInfo, KEY_DEVELOPER)) {
-
                     JSONArray objectDeveloper = gameInfo.getJSONArray(KEY_DEVELOPER);
                     for (int i = 0; i < objectDeveloper.length(); i++) {
                         if (Utils.contains(objectDeveloper.getJSONObject(i), KEY_GETDEVELOPER)) {
@@ -161,7 +155,6 @@ public class Parser {
 
                 genre = null;
                 if (Utils.contains(gameInfo, KEY_GENRE)) {
-
                     JSONArray objectGenre = gameInfo.getJSONArray(KEY_GENRE);
                     for (int i = 0; i < objectGenre.length(); i++) {
                         if (Utils.contains(objectGenre.getJSONObject(i), KEY_GENRENAME)) {
@@ -176,19 +169,15 @@ public class Parser {
                 if (Utils.contains(gameInfo, KEY_PAGEIMAGE)) {
                     JSONObject objectPageImage = gameInfo.getJSONObject(KEY_PAGEIMAGE);
                     if (Utils.contains(objectPageImage, KEY_PAGEICON)) {
-
                         singlePageImage = objectPageImage.getString(KEY_PAGEICON);
-
                     }
                 }
-
                 gameDetail.setPlatform(platform);
                 gameDetail.setName(name);
                 gameDetail.setDeveloper(developer);
                 gameDetail.setGenre(genre);
                 gameDetail.setPageImage(singlePageImage);
                 gameDetail.setDescription(description);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

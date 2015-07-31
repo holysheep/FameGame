@@ -1,10 +1,7 @@
 package gamecore.activities;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -52,7 +49,6 @@ public class SubActivity extends AppCompatActivity implements ObservableScrollVi
         setContentView(R.layout.game_page_activity);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        gameTitle = (TextView) findViewById(R.id.singleGameTitle);
         gamePlatform = (TextView) findViewById(R.id.gamePlatform);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         gameDev = (TextView) findViewById(R.id.gameDeveloper);
@@ -116,7 +112,6 @@ public class SubActivity extends AppCompatActivity implements ObservableScrollVi
     }
 
     public void loadGame(Game game) {
-        gameTitle.setText(game.getName());
         gameDev.setText(game.getDeveloper());
         gamePlatform.setText("Platforms: " + game.getPlatform());
         gameGenre.setText("Genre: " + game.getGenre());
@@ -129,6 +124,7 @@ public class SubActivity extends AppCompatActivity implements ObservableScrollVi
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         onScrollChanged(mScrollView.getCurrentScrollY(), false, false);
+
     }
 
     @Override
@@ -136,7 +132,7 @@ public class SubActivity extends AppCompatActivity implements ObservableScrollVi
         int baseColor = getResources().getColor(R.color.colorPrimary);
         float alpha = 1 - (float) Math.max(0, mParallaxImageHeight - scrollY) / mParallaxImageHeight;
         mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(alpha, baseColor));
-        ViewHelper.setTranslationY(mImageView, scrollY / 4);
+        ViewHelper.setTranslationY(mImageView, scrollY / 2);
     }
 
     @Override
@@ -159,11 +155,10 @@ public class SubActivity extends AppCompatActivity implements ObservableScrollVi
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-            this.finish();
+                this.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 }
-
 

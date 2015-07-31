@@ -1,7 +1,6 @@
 package gamecore.task;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
@@ -11,7 +10,6 @@ import gamecore.callbacks.PCgamesLoadedListener;
 import gamecore.extras.GameUtils;
 import gamecore.network.VolleySingleton;
 import gamecore.pojo.Game;
-
 
 public class TaskLoadMain extends AsyncTask<Void, Void, ArrayList<Game>> {
 
@@ -24,7 +22,6 @@ public class TaskLoadMain extends AsyncTask<Void, Void, ArrayList<Game>> {
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
     }
-
 
     @Override
     protected void onPreExecute() {

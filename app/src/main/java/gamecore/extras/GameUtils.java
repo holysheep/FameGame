@@ -11,7 +11,6 @@ import gamecore.json.Requester;
 import gamecore.materialtest.MyApp;
 import gamecore.pojo.Game;
 
-
 public class GameUtils {
     public static ArrayList<Game> loadGames(RequestQueue requestQueue) {
         JSONObject response = Requester.sendJsonRequest(requestQueue, EndPoints.getRequestUrl());

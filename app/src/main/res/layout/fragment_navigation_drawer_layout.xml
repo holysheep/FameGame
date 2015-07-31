@@ -6,17 +6,17 @@
                 tools:context="com.example.lexy.materialtest.NavigationDrawerLayout">
 
 	<ImageView
-        android:id="@+id/drawerImage"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
+		android:id="@+id/drawerImage"
 		android:layout_width="280dp"
 		android:layout_height="150dp"
+		android:layout_marginBottom="16dp"
+		android:layout_marginTop="24dp"
 		android:src="@drawable/drawer"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/drawerMenu"
-        android:layout_below="@+id/drawerImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/drawerMenu"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/drawerImage">
+	</android.support.v7.widget.RecyclerView>
 </RelativeLayout>

@@ -72,9 +72,6 @@ public class CardsFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new CardsAdapter(getActivity());
         recyclerView.setAdapter(adapter);
-
         return view;
     }
-
-
 }

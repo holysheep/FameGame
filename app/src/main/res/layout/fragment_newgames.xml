@@ -12,9 +12,9 @@
 
 		<tr.xip.errorview.ErrorView
 			android:id="@+id/error_view"
-			android:background="#eeeeee"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:background="#eeeeee"
 			app:ev_retryButtonText="PULL TO TRY AGAIN"
 			app:ev_retryButtonTextColor="#000000"
 			app:ev_subtitle="No internet connection"
@@ -57,5 +57,4 @@
 		android:padding="@dimen/size_word"
 		android:textColor="#FF4444"
 		android:visibility="gone"/>
-
 </RelativeLayout>

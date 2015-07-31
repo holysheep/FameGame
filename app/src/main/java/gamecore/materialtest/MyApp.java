@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 
 import gamecore.database.DBgames;
 
-
 public class MyApp extends Application {
 
     public static final String API_KEY = "a94ac164a19a3e2c8c2c7b406d36866b746e7130";
@@ -36,7 +35,6 @@ public class MyApp extends Application {
         return sInstance.getApplicationContext();
     }
 
-
     public static void saveToPreferences(Context context, String preferenceName, String preferenceValue) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -48,5 +46,4 @@ public class MyApp extends Application {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         return sharedPreferences.getString(preferenceName, defaultValue);
     }
-
 }

@@ -1,6 +1,12 @@
-.gradle
-/local.properties
 /.idea
 .DS_Store
 /build
 *.iml
+*.apk
+bin/
+gen/
+.gradle/
+build/
+local.properties
+proguard/
+*.log

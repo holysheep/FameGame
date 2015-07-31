@@ -89,6 +89,12 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        onRefresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -106,12 +112,11 @@ public class NewGamesFragment extends Fragment implements AdapterNewGames.ClickL
         listPCnewgames.setAdapter(adapterNewGames);
         listPCnewgames.setLayoutManager(new LinearLayoutManager(getActivity()));
         listPCGames = MyApp.getWritableDatabase().getAllgames();
-        if(isNetworkAvailable(getActivity())){
+        if (isNetworkAvailable(getActivity())) {
             if (listPCGames.isEmpty()) {
                 new TaskLoadMain(this).execute();
             }
         }
-
         adapterNewGames.setGamelist(listPCGames);
         return view;
     }

@@ -5,129 +5,110 @@
              android:layout_height="match_parent"
              android:orientation="vertical">
 
-    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
-        android:id="@+id/scroll"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fillViewport="true">
+	<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+		android:id="@+id/scroll"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:fillViewport="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@android:color/white">
 
-            <!-- Background image -->
-            <ImageView
-                android:id="@+id/gameImage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:maxHeight="180dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/noimage"/>
+			<!-- Background image -->
+			<ImageView
+				android:id="@+id/gameImage"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:adjustViewBounds="true"
+				android:maxHeight="180dp"
+				android:scaleType="centerCrop"
+				android:src="@drawable/noimage"/>
+			<View
+				android:id="@+id/anchor"
+				android:layout_width="fill_parent"
+				android:layout_height="@dimen/parallax_image_height"
+				android:minHeight="@dimen/parallax_image_height"/>
 
-            <View
-                android:id="@+id/anchor"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/parallax_image_height"
-                android:minHeight="@dimen/parallax_image_height"/>
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/anchor"
+				android:background="@android:color/white">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/anchor"
-                android:background="@android:color/white">
+				<TextView
+					android:id="@+id/gameDeveloper"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingBottom="4dp"
+					android:paddingLeft="@dimen/activity_horizontal_margin"
+					android:paddingRight="@dimen/activity_horizontal_margin"
+					android:paddingTop="4dp"
+					android:text="@string/gameDeveloper"
+					android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-                <TextView
-                    android:id="@+id/singleGameTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingStart="15dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/singleGameTitle"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/material_blue_grey_800"/>
+				<TextView
+					android:id="@+id/gamePlatform"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignStart="@id/gameDeveloper"
+					android:layout_below="@id/gameDeveloper"
+					android:paddingBottom="4dp"
+					android:paddingLeft="@dimen/activity_horizontal_margin"
+					android:paddingRight="@dimen/activity_horizontal_margin"
+					android:paddingTop="4dp"
+					android:text="@string/gamePlatform"/>
 
-                <TextView
-                    android:id="@+id/gameDeveloper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/singleGameTitle"
-                    android:layout_below="@id/singleGameTitle"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="4dp"
-                    android:text="@string/gameDeveloper"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+				<TextView
+					android:id="@+id/gameGenre"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignStart="@id/gameDeveloper"
+					android:layout_below="@id/gamePlatform"
+					android:paddingBottom="4dp"
+					android:paddingLeft="@dimen/activity_horizontal_margin"
+					android:paddingRight="@dimen/activity_horizontal_margin"
+					android:paddingTop="4dp"
+					android:text="@string/gameGanre"/>
 
-                <TextView
-                    android:id="@+id/gamePlatform"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/singleGameTitle"
-                    android:layout_below="@id/gameDeveloper"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="4dp"
-                    android:text="@string/gamePlatform"/>
+				<TextView
+					android:id="@+id/gameDescription"
+					android:layout_width="match_parent"
+					android:layout_height="fill_parent"
+					android:layout_alignStart="@id/gameDeveloper"
+					android:layout_below="@id/gameGenre"
+					android:layout_marginRight="10dp"
+					android:autoLink="web"
+					android:paddingBottom="8dp"
+					android:paddingLeft="@dimen/activity_horizontal_margin"
+					android:paddingRight="@dimen/activity_horizontal_margin"
+					android:paddingTop="8dp"
+					android:text="@string/gameDescruption"
+					android:typeface="normal"/>
 
-                <TextView
-                    android:id="@+id/gameGenre"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/singleGameTitle"
-                    android:layout_below="@id/gamePlatform"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="4dp"
-                    android:text="@string/gameGanre"/>
+				<ProgressBar
+					android:id="@+id/progressBar"
+					style="?android:attr/progressBarStyleLarge"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"/>
+			</RelativeLayout>
+		</RelativeLayout>
+	</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
-                <TextView
-                    android:id="@+id/gameDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignStart="@id/singleGameTitle"
-                    android:layout_below="@id/gameGenre"
-                    android:layout_marginRight="10dp"
-                    android:autoLink="web"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin"
-                    android:paddingTop="8dp"
-                    android:text="@string/gameDescruption"
-                    android:typeface="normal"/>
+	<include layout="@layout/gradient_header"/>
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"/>
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-
-    <include layout="@layout/gradient_header"/>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:paddingTop="@dimen/app_bar_top_padding"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark">
-    </android.support.v7.widget.Toolbar>
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorPrimary"
+		android:paddingTop="@dimen/app_bar_top_padding"
+		app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+		app:theme="@style/ThemeOverlay.AppCompat.Dark">
+	</android.support.v7.widget.Toolbar>
 
 </FrameLayout>

@@ -52,7 +52,6 @@ public class DBgames {
             if (currentGame.getReleaseMonth() != null) {
                 statement.bindString(6, currentGame.getReleaseMonth());
             }
-
             statement.bindString(7, currentGame.getDeck());
             statement.bindString(5, currentGame.getDetailUrl());
             statement.execute();
@@ -62,7 +61,6 @@ public class DBgames {
         mDatabase.setTransactionSuccessful();
         mDatabase.endTransaction();
     }
-
 
 
     public ArrayList<Game> getAllgames() {

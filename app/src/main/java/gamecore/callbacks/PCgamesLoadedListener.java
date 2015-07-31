@@ -1,6 +1,5 @@
 package gamecore.callbacks;
 
-
 import java.util.ArrayList;
 
 import gamecore.pojo.Game;

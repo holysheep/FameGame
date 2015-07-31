@@ -2,7 +2,6 @@ package gamecore.json;
 
 import org.json.JSONObject;
 
-
 public class Utils {
     public static boolean contains(JSONObject jsonObject, String key) {
         if (jsonObject != null) {

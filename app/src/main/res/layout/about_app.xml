@@ -5,22 +5,21 @@
               android:orientation="vertical"
               android:padding="15dp">
 
-    <TextView
-        android:id="@+id/about_body"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:text="@string/aboutbody" />
+	<TextView
+		android:id="@+id/about_body"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/aboutbody"
+		android:textColor="#FFFFFF"
+		android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/about_credits"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="10dip"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:text="@string/about_credit" />
-
+	<TextView
+		android:id="@+id/about_credits"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:paddingTop="10dip"
+		android:text="@string/about_credit"
+		android:textColor="#FFFFFF"
+		android:textSize="16sp"/>
 </LinearLayout>

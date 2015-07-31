@@ -1,17 +1,6 @@
 package gamecore.pojo;
 
-
 public class Game {
-    /* public static final Parcelable.Creator<GameCat> CREATOR
-            = new Parcelable.Creator<GameCat>() {
-        public GameCat createFromParcel(Parcel in) {
-            return new GameCat(in);
-        }
-
-        public GameCat[] newArray(int size) {
-            return new GameCat[size];
-        }
-    }; */
 
     private String name;
     private int id;
@@ -127,30 +116,4 @@ public class Game {
     public void setDeck(String deck) {
         this.deck = deck;
     }
-
-   /* public GameCat(Parcel input) {
-        id = input.readInt();
-        name = input.readString();
-        mainImage = input.readString();
-        deck = input.readString();
-        releaseMonth = input.readString();
-        releaseDay = input.readInt();
-    }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeString(name);
-        dest.writeInt(id);
-        dest.writeString(mainImage);
-        dest.writeInt(releaseDay);
-        dest.writeString(releaseMonth);
-        dest.writeString(deck);
-    } */
 }

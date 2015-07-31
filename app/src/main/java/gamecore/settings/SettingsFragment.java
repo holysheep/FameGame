@@ -2,13 +2,14 @@ package gamecore.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 
 import gamecore.R;
 
-
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener {
 
     final static String KEY_PREF_SYNC_CONN = "pref_syncConnectionType";
 
@@ -16,6 +17,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        bindPreferencesSummaryToValue(findPreference("example_checkbox"));
+    }
+
+    private void bindPreferencesSummaryToValue(Preference preference) {
+        preference.setOnPreferenceChangeListener(this);
+        onPreferenceChange(preference,
+                PreferenceManager
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), ""));
+
     }
 
     @Override
@@ -39,5 +50,26 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onPause();
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String stringValue = newValue.toString();
+
+        if (preference instanceof ListPreference) {
+            // For list preferences, look up the correct display value in
+            // the preference's 'entries' list.
+            ListPreference listPreference = (ListPreference) preference;
+            int index = listPreference.findIndexOfValue(stringValue);
+
+            // Set the summary to reflect the new value.
+            if (index >= 0) {
+                preference.setSummary(listPreference.getEntries()[index]);
+            }
+        } else {
+            //For other preferences, set the summary to the value's simple string representation
+            preference.setSummary(stringValue);
+        }
+        return true;
     }
 }
